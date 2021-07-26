@@ -17,6 +17,7 @@ $btEnviar = FALSE;
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <link rel="sorcut icon" href="book.png" type="image/png" style="width: 16px; height: 16px;">
+    <link rel="stylesheet" href="Styles for CSS/DivBord.css">
 
     <style>
         .espaco {
@@ -45,7 +46,7 @@ $btEnviar = FALSE;
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,10 +83,14 @@ $btEnviar = FALSE;
         </div>
     </nav>
 
+    <div id="BordaForm100" class="border-dark"></div> <div id="BordaForm10" class="border-dark"></div> 
+    <div id="BordaForm200" class="border-dark"></div> <div id="BordaForm20" class="border-dark"></div>
+    <div id="BordaForm300" class="border-dark"></div> <div id="BordaForm30" class="border-dark"></div>
+
     <div class="container-fluid ">
         <div class="row">
             <div class="col-md-10 offset-md-1">
-                <div class="card-header bg-light text-center" style="font-size: 25px;">
+                <div class="card-header bg-dark text-center text-light" style="font-size: 25px;">
                     Cadastro de Livro
                 </div>
                 <div class="card-body border">
@@ -149,6 +154,7 @@ $btEnviar = FALSE;
                         $pr = $pc->pesquisarLivroID($id);
                     }
                     ?>
+
                     <form method="post" action="">
                         <div class="row g-8">
                             <div class="col-md-8 offset-md-2">
@@ -180,7 +186,7 @@ $btEnviar = FALSE;
                             </div>
                         </div>
                     </form>
-
+                                      
                 </div>
                 <table class="table">
                     <thead class="thead-light bg-dark text-white">
