@@ -1,6 +1,7 @@
 <?php
-include_once 'controller/LivroController.php';
-include_once './model/livro.php';
+include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/controller/livroController.php';
+include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/model/livro.php';
+
 $pr = new Livro();
 $btEnviar = FALSE;
 ?>
@@ -89,7 +90,7 @@ $btEnviar = FALSE;
                 </div>
                 <div class="card-body border">
                     <?php
-                    include_once('C:\xampp\htdocs\PHP-WEB\cadastroLivro.php');
+                    include_once('C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/cadastroLivro.php');
                     //envio dos dados para o banco
                     if (isset($_POST['cadastrarLivro'])) {
                         $titulo = ($_POST['Titulo']);
@@ -117,7 +118,7 @@ $btEnviar = FALSE;
                         if ($titulo != "") {
                             $id = $_POST['idlivro'];
                             $autor = $_POST['Autor'];
-                            $editora = $_POST['Editoria'];
+                            $editora = $_POST['Editora'];
                             $qtdEstoque = $_POST['qtdEstoque'];
 
                             $pc = new LivroController();

@@ -1,6 +1,6 @@
 <?php
-include_once 'C:/xampp/htdocs/PHP-WEB/bd/conectaCasa.php';
-include_once 'C:/xampp/htdocs/PHP-WEB/model/livro.php';
+include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/bd/conectaCasa.php';
+include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/model/livro.php';
 
 class daoLivro
 {
@@ -60,7 +60,7 @@ class daoLivro
         }else{
             echo "<script>alert('Banco inoperante!')</script>";
             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
-            URL='https://localhost/PHP-WEB/cadastroLivro.php\">";
+            URL='http://localhost/phpPDO/ALUNO__HaristinNuMacedo/cadastroLivro.php\">";
         }
 
     }
@@ -88,7 +88,7 @@ class daoLivro
         }else{
             echo "<script>alert('Banco inoperante!')</script>";
             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
-            URL='https://localhost/php01/cadastroLivro.php\">";
+            URL='http://localhost/phpPDO/ALUNO__HaristinNuMacedo/cadastroLivro.php\">";
         }
 
         return $livro;
