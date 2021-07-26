@@ -1,7 +1,7 @@
 <?php
-include_once 'C:/xampp/htdocs/PHPMatutinoPDO/bd/Conecta.php';
-include_once 'C:/xampp/htdocs/PHPMatutinoPDO/model/Produto.php';
-include_once 'C:/xampp/htdocs/PHPMatutinoPDO/model/Mensagem.php';
+include_once 'C:/xampp/htdocs/phpPDO/bd/Conecta.php';
+include_once 'C:/xampp/htdocs/phpPDO/model/Produto.php';
+include_once 'C:/xampp/htdocs/phpPDO/model/Mensagem.php';
 
 class DaoProduto {
 
@@ -96,7 +96,8 @@ class DaoProduto {
                     }
                 }
             } catch (Exception $ex) {
-                $msg->setMsg($ex);
+                $msg = 'Lista Feita com primazia.';
+                return $msg + $ex;
             }  
             $conn = null;           
             return $lista;
@@ -148,7 +149,8 @@ class DaoProduto {
                     }
                 }
             } catch (Exception $ex) {
-                $msg->setMsg($ex);
+                $msg = 'Pesquisa Feita com primazia.';
+                return $msg + $ex;
             }  
             $conn = null;
         }else{
