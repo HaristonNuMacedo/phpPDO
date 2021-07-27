@@ -1,6 +1,6 @@
 <?php
-include_once 'C:/xampp/htdocs/phpPDO/dao/DaoProduto.php';
-include_once 'C:/xampp/htdocs/phpPDO/model/Produto.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/dao/daoProduto.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/produto.php';
 
 class ProdutoController {
     
@@ -47,13 +47,6 @@ class ProdutoController {
         $daoProduto = new DaoProduto();
         return $daoProduto->pesquisarProdutoIdDAO($id);
     }
-    
-    //método para editar produto
-    /*
-    public function editarProduto($id){
-        $daoProduto = new DaoProduto();
-        return $daoProduto->editarProdutoDAO($id);
-    }*/
     
     //método para limpar formulário
     public function limpar(){

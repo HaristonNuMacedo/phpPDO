@@ -1,7 +1,7 @@
 <?php
-include_once 'controller/ProdutoController.php';
-include_once './model/Produto.php';
-include_once './model/Mensagem.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/controller/ProdutoController.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/produto.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
 
 $msg = new Mensagem();
 $pr = new Produto();
@@ -9,16 +9,13 @@ $btEnviar = FALSE;
 $btAtualizar = FALSE;
 $btExcluir = FALSE;
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Cadastro</title>
+        <title>Cadastro de Produto</title>
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
         <style>
             .btInput{
                 margin-top: 20px;
@@ -79,8 +76,7 @@ $btExcluir = FALSE;
 
                                 $pc = new ProdutoController();
                                 unset($_POST['cadastrarProduto']);
-                                $msg = $pc->inserirProduto($nomeProduto, $vlrCompra,
-                                        $vlrVenda, $qtdEstoque);
+                                $msg = $pc->inserirProduto($nomeProduto, $vlrCompra, $vlrVenda, $qtdEstoque);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                     URL='cadastroProduto.php'\">";
@@ -298,7 +294,6 @@ $btExcluir = FALSE;
 
     <script src="js/bootstrap.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
         var myModal = document.getElementById('myModal')
         var myInput = document.getElementById('myInput')
@@ -309,3 +304,4 @@ $btExcluir = FALSE;
     </script> 
 </body>
 </html>
+
