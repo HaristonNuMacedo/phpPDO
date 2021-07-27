@@ -36,4 +36,32 @@ class FornecedorController {
         $daofORNE = new DaoFornecedor();
         return $daofORNE->pesquisarFornecedorIdDAO($id);
     }
+
+    public function atualizarFornecedor($nomeFornecedor, $logradouro, $numero, $complemneto,
+                $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel, $id){
+
+        $forne = new Fornecedor();
+        $forne->setNomeFornecedor($nomeFornecedor);
+        $forne->setLogradouro($logradouro);
+        $forne->setNumero($numero);
+        $forne->setComplemneto($complemneto);
+        $forne->setBairro($bairro);
+        $forne->setCidade($cidade);
+        $forne->setUf($uf);
+        $forne->setCep($cep);
+        $forne->setRepresentante($representante);
+        $forne->setEmail($email);
+        $forne->setTelFixo($telFixo);
+        $forne->setTelCel($telCel);
+        $forne->setIdFornecedor($id);
+        
+        $daoForne= new DaoFornecedor();
+        return $daoForne->atualizarFornecedorDAO($forne);
+    }
+
+    //método para excluir produto
+    public function excluirProduto($id){
+        $daoForne = new DaoFornecedor();
+        return $daoForne->excluirFornecedorDAO($id);
+    }
 }

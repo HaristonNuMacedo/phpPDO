@@ -52,31 +52,44 @@ class DaoFornecedor {
     }
     
     //método para atualizar dados da tabela fornecedor
-    /*public function atualizarFornecedorDAO(Fornecedor $fornecedor){
+    public function atualizarFornecedorDAO(Fornecedor $forne){
         $conn = new Conecta();
         $msg = new Mensagem();
         $conecta = $conn->conectadb();
         if($conecta){
-            $id = $fornecedor->getIdFornecedor();
-            $nomeFornecedor = $fornecedor->getNomeFornecedor();
-            $vlrCompra = $fornecedor->getVlrCompra();
-            $vlrVenda = $fornecedor->getVlrVenda();
-            $qtdEstoque = $fornecedor->getQtdEstoque();
-            try{
-                $stmt = $conecta->prepare("update fornecedor set "
-                        . "nome = ?,"
-                        . "vlrCompra = ?,"
-                        . "vlrVenda = ?, "
-                        . "qtdEstoque = ? "
-                        . "where id = ?");
+            $IdFornecedor = $forne->getIdFornecedor();
+            $nomeFornecedor = $forne->getNomeFornecedor();
+            $Logradouro = $forne->getLogradouro();
+            $Numero = $forne->getNumero();
+            $Complemento = $forne->getComplemneto();
+            $Bairro = $forne->getBairro();
+            $Cidade = $forne->getCidade();
+            $Uf = $forne->getUf();
+            $Cep = $forne->getCep();
+            $Representante = $forne->getRepresentante();
+            $Email = $forne->getEmail();
+            $TelFixo = $forne->getTelFixo();
+            $TelCel = $forne->getTelCel();
+            try {
+                $stmt = $conecta->prepare("update produto set nomeFornecedor = ?, logadrouro = ?, numero = ?, "
+                        . "complemento = ?, bairro = ?, cidade = ?, uf = ?, cep = ?, representante = ?, email = ?, "
+                        . "telFixo = ?, telCel = ? where idFornecedor = ?");
                 $stmt->bindParam(1, $nomeFornecedor);
-                $stmt->bindParam(2, $vlrCompra);
-                $stmt->bindParam(3, $vlrVenda);
-                $stmt->bindParam(4, $qtdEstoque);
-                $stmt->bindParam(5, $id);
+                $stmt->bindParam(2, $Logradouro);
+                $stmt->bindParam(3, $Numero);
+                $stmt->bindParam(4, $Complemento);
+                $stmt->bindParam(5, $Bairro);
+                $stmt->bindParam(6, $Cidade);
+                $stmt->bindParam(7, $Uf);
+                $stmt->bindParam(8, $Cep);
+                $stmt->bindParam(9, $Representante);
+                $stmt->bindParam(10, $Email);
+                $stmt->bindParam(11, $TelFixo);
+                $stmt->bindParam(12, $TelCel);
+                $stmt->bindParam(13, $IdFornecedor);
                 $stmt->execute();
-                $msg->setMsg("<p style='color: blue;'>"
-                        . "Dados atualizados com sucesso</p>");
+                $msg->setMsg("<p style='color: green;'>"
+                        . "Dados Atualizados com sucesso</p>");
             } catch (Exception $ex) {
                 $msg->setMsg($ex);
             }
@@ -86,7 +99,7 @@ class DaoFornecedor {
         }
         $conn = null;
         return $msg;
-    }*/
+    }
     
     //método para carregar lista de fornecedors do banco de dados
     public function listarFornecedoresDAO(){
@@ -130,14 +143,14 @@ class DaoFornecedor {
     }
     
     //método para excluir fornecedor na tabela fornecedor
-    /*public function excluirFornecedorDAO($id){
+    public function excluirFornecedorDAO($id){
         $conn = new Conecta();
         $conecta = $conn->conectadb();
         $msg = new Mensagem();
         if($conecta){
              try {
                 $stmt = $conecta->prepare("delete from fornecedor "
-                        . "where id = ?");
+                        . "where idFornecedor = ?");
                 $stmt->bindParam(1, $id);
                 $stmt->execute();
                 $msg->setMsg("<p style='color: #d6bc71;'>"
@@ -150,7 +163,7 @@ class DaoFornecedor {
         }
         $conn = null;
         return $msg;
-    }*/
+    }
     
     //método para os dados de fornecedor por id
     public function pesquisarFornecedorIdDAO($id){

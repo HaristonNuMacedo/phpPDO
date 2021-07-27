@@ -21,8 +21,8 @@ $btExcluir = FALSE;
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- CSS only -->
 
-    <link rel="sorcut icon" href="../PROFESSOR/book.png" type="image/png" style="width: 16px; height: 16px;">
-    <link rel="stylesheet" href="../css/DivBord.css">
+    <link rel="sorcut icon" href="../img/book.png" type="image/png" style="width: 16px; height: 16px;">
+    <!--<link rel="stylesheet" href="../css/DivBord.css">-->
 
     <style>
         .espaco {
@@ -280,14 +280,6 @@ $btExcluir = FALSE;
                         if ($listaLivros != null) {
                             foreach ($listaLivros as $ll) {
                                 $a++;
-
-                                /* print_r("<tr><td>" . $lp->getIdProduto() . "</td>");
-                            print_r("<td>" . $lp->getNomeProduto() . "</td>");
-                            print_r("<td>" . $lp->getVlrCompra(). "</td>");
-                            print_r("<td>" . $lp->getVlrVenda() . "</td>");
-                            print_r("<td>" . $lp->getQtdEstoque() . "</td></tr>");*/
-
-
                         ?>
                                 <tr>
                                     <td><?php print_r($ll->getIdFornecedor()); ?></td>
@@ -309,8 +301,8 @@ $btExcluir = FALSE;
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="get" action="">
-                                                    <label><strong>Deseja excluir o livro <?php echo $ll->getNomeFornecedor(); ?>?</strong></label>
+                                                <form method="get" action="../controller/excluiFornecedor.php">
+                                                    <label><strong>Deseja excluir o Fornecedor <?php echo $ll->getNomeFornecedor(); ?>?</strong></label>
                                                     <input type="hidden" name="ide" value="<?php echo $ll->getIdFornecedor(); ?>">
 
 
@@ -327,9 +319,6 @@ $btExcluir = FALSE;
                             }
                         }
                         ?>
-
-
-
 
                     </tbody>
                 </table>
