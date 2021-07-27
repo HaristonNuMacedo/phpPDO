@@ -1,9 +1,13 @@
 <?php
 include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/controller/livroController.php';
 include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/model/livro.php';
+include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/model/Mensagem.php';
 
+$msg = new Mensagem();
 $pr = new Livro();
 $btEnviar = FALSE;
+$btAtualizar = FALSE;
+$btExcluir = FALSE;
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +21,7 @@ $btEnviar = FALSE;
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <link rel="sorcut icon" href="book.png" type="image/png" style="width: 16px; height: 16px;">
-    <link rel="stylesheet" href="Styles for CSS/DivBord.css">
+    <link rel="stylesheet" href="Styles_for_CSS/DivBord.css">
 
     <style>
         .espaco {
@@ -46,7 +50,7 @@ $btEnviar = FALSE;
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: absolute;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,10 +91,10 @@ $btEnviar = FALSE;
     <div id="BordaForm200" class="border-dark"></div> <div id="BordaForm20" class="border-dark"></div>
     <div id="BordaForm300" class="border-dark"></div> <div id="BordaForm30" class="border-dark"></div>
 
-    <div class="container-fluid ">
+    <div class="container-fluid " style="position: relative;">
         <div class="row">
             <div class="col-md-10 offset-md-1">
-                <div class="card-header bg-dark text-center text-light" style="font-size: 25px;">
+                <div class="card-header bg-dark text-center text-light" style="font-size: 25px; border-top: 3px solid white">
                     Cadastro de Livro
                 </div>
                 <div class="card-body border">
@@ -101,17 +105,12 @@ $btEnviar = FALSE;
                         $titulo = ($_POST['Titulo']);
                         if ($titulo != "") {
                             $autor = $_POST['Autor'];
-                            $editora = $_POST['Editoria'];
+                            $editora = $_POST['Editora'];
                             $qtdEstoque = $_POST['qtdEstoque'];
 
                             $pc = new LivroController();
                             unset($_POST['cadastrarLivro']);
-                            echo "<p>" . $pc->inserirLivro(
-                                $titulo,
-                                $autor,
-                                $editora,
-                                $qtdEstoque
-                            ) . "</p>";
+                            $msg = $pc->inserirLivro($titulo, $autor, $editora, $qtdEstoque);
                             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                 URL='cadastroLivro.php'\">";
                         }
@@ -178,9 +177,47 @@ $btEnviar = FALSE;
                                 <input type="number" class="form-control" name="qtdEstoque" value="<?php echo $pr->getQtdEstoque(); ?>">
 
                                 <div class="offset-md-2">
-                                    <input type="submit" name="cadastrarLivro" class="btn btn-success btInput px-md-4" value="Enviar" style="margin-right: 20px;">
-                                    <input type="submit" name="atualizarLivro" class="btn btn-dark btInput px-md-4" value="Atualizar" style="margin-right: 20px;">
-                                    <input type="submit" name="excluirLivro" class="btn btn-warning btInput px-md-4" value="Excluir" style="margin-right: 20px;">
+                                    <input type="submit" name="cadastrarLivro" class="btn btn-success btInput px-md-4" value="Enviar" 
+                                            <?php if($btEnviar == TRUE) echo "disabled"; ?>style="margin-right: 20px;">
+                                    <input type="submit" name="atualizarLivro" class="btn btn-dark btInput px-md-4" value="Atualizar" 
+                                            <?php if($btAtualizar == FALSE) echo "disabled"; ?> style="margin-right: 20px;">
+                                            
+                                    <button type="button" class="btn btn-warning btInput" 
+                                            data-bs-toggle="modal" data-bs-target="#ModalExcluir"
+                                            <?php if($btExcluir == FALSE) echo "disabled"; ?> style="margin-right: 20px;">
+                                        Excluir 
+                                    </button>
+
+                                    <!-- Modal para excluir -->
+                                    <div class="modal fade" id="ModalExcluir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" 
+                                                        id="exampleModalLabel">
+                                                        Confirmar Exclusão</h5>
+                                                    <button type="button" 
+                                                            class="btn-close" 
+                                                            data-bs-dismiss="modal"
+                                                            aria-label="Close">
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>Deseja Excluir?</h5>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="submit" name="excluirProduto"
+                                                           class="btn btn-success "
+                                                           value="Sim">
+                                                    <input type="submit" 
+                                                        class="btn btn-light btInput" 
+                                                        name="limpar" value="Não">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- fim do modal para excluir -->
+
                                     <input type="submit" name="limpar" class="btn btn-danger btInput px-md-4" value="Limpar" style="margin-right: 20px;">
                                 </div>
                             </div>
@@ -235,7 +272,7 @@ $btEnviar = FALSE;
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="get" action="controller/excluiLivro.php">
+                                                <form method="get" action="">
                                                     <label><strong>Deseja excluir o livro <?php echo $ll->getTitulo(); ?>?</strong></label>
                                                     <input type="hidden" name="ide" value="<?php echo $ll->getIdLivro(); ?>">
 

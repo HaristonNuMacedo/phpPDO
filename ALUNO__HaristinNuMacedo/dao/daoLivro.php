@@ -1,67 +1,94 @@
 <?php
 include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/bd/conectaCasa.php';
 include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/model/livro.php';
+include_once 'C:/xampp/htdocs/phpPDO/ALUNO__HaristinNuMacedo/model/Mensagem.php';
 
 class daoLivro
 {
-    public function inserir(Livro $l)
+    public function inserir(Livro $livro)
     {
         $conn = new Conecta();
-        if ($conn->conectadb()) {
-            $sql = "insert into livro value (null, '" .
-                $l->getTitulo() . "','" .
-                $l->getAutor() . "','" .
-                $l->getEditora() . "','" .
-                $l->getQtdEstoque() . "')";
-            if (mysqli_query($conn->conectadb(), $sql)) {
-                $msg = "<p style='color:green'>  Dados cadastrados com sucesso </p>";
-            } else {
-                $msg = "<p> failed </p>";
+        $msg = new Mensagem();
+        $conecta = $conn->conectadb();
+        if ($conecta) {
+            $titulo = $livro->getTitulo();
+            $autor = $livro->getAutor();
+            $editora = $livro->getEditora();
+            $qtdEstoque = $livro->getQtdEstoque();
+            try {
+                $stmt = $conecta->prepare("insert into livro values "
+                        . "(null,?,?,?,?)");
+                $stmt->bindParam(1, $titulo);
+                $stmt->bindParam(2, $autor);
+                $stmt->bindParam(3, $editora);
+                $stmt->bindParam(4, $qtdEstoque);
+                $stmt->execute();
+                $msg->setMsg("<p style='color: green;'>"
+                        . "Dados Cadastrados com sucesso</p>");
+            } catch (Exception $ex) {
+                $msg->setMsg($ex);
             }
+
         } else {
-            $msg = "<p> Erro na conexão </p>";
+            $msg->setMsg("<p style='color: red;'>"
+                        . "Erro na conexão com o banco de dados.</p>");
         }
-        mysqli_close($conn->conectadb());
+        $conn = null;
         return $msg;
     }
 
     public function listarLivrosDAO(){
         $conn = new Conecta();
-        if ($conn->conectadb()) {
-            $sql = "select * from livro";
-            $query = mysqli_query($conn->conectadb(), $sql);
-            $result = mysqli_fetch_array($query);
-            $lista = array();
-            $a = 0;
-            do{
-                $livro = new Livro();
-                $livro->setIdLivro($result['idlivro']);
-                $livro->setTitulo($result['titulo']);
-                $livro->setAutor($result['autor']);
-                $livro->setEditora($result['editoria']);
-                $livro->setQtdEstoque($result['qtdEstoque']);
-                $lista[$a] = $livro;
-                $a++;
-            }while($result = mysqli_fetch_array($query));
-            mysqli_close($conn->conectadb());
+        $conecta = $conn->conectadb();
+        if ($conecta) {
+            try{
+                $rs = $conecta->query("select * from livro");
+                $lista = array();
+                $a = 0;
+                if($rs->execute()){
+                    if($rs->rowCount() > 0){
+                        while($linha = $rs->fetch(PDO::FETCH_OBJ)){
+                            $livro = new Livro();
+                            $livro->setIdLivro($linha->idlivro);
+                            $livro->setTitulo($linha->titulo);
+                            $livro->setAutor($linha->autor);
+                            $livro->setEditora($linha->editoria);
+                            $livro->setQtdEstoque($linha->qtdEstoque);
+                            $lista[$a] = $livro;
+                            $a++;
+                        }
+                    }
+                }
+            } catch (Exception $ex) {
+                $msg = 'Lista Feita com primazia.';
+                return $msg + $ex;
+            }  
+            $conn = null;
             return $lista;
         }
+    
     }
 
     public function excluirLivroDAO($id){
         $conn = new Conecta();
         $conecta = $conn->conectadb();
+        $msg = new Mensagem();
         if($conecta){
-            $sql = "delete from livro where idlivro = '$id'";
-            mysqli_query($conecta, $sql);
-            header("Location: ../cadastroLivro.php");
-            mysqli_close($conecta);
-            exit;
+            try {
+                $stmt = $conecta->prepare("delete from livro "
+                        . "where id = ?");
+                $stmt->bindParam(1, $id);
+                $stmt->execute();
+                $msg->setMsg("<p style='color: #d6bc71;'>"
+                        . "Dados excluídos com sucesso.</p>");
+            } catch (Exception $ex) {
+                $msg->setMsg($ex);
+            }
         }else{
-            echo "<script>alert('Banco inoperante!')</script>";
-            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
-            URL='http://localhost/phpPDO/ALUNO__HaristinNuMacedo/cadastroLivro.php\">";
+            $msg->setMsg("<p style='color: red;'>'Banco inoperante!'</p>"); 
         }
+        $conn = null;
+        return $msg;
 
     }
 
@@ -69,21 +96,28 @@ class daoLivro
     public function pesquisarLivroDAO($id){
         $conn = new Conecta();
         $conecta = $conn->conectadb();
+        $livro = new Livro();
         if($conecta){
-            $sql = "select * from livro where idlivro = '$id'";
-            $result = mysqli_query($conecta, $sql);
-            $linha = mysqli_fetch_assoc($result);
-            $livro = new Livro();
-            if($linha){
-                do {
-                    $livro->setIdLivro($linha['idlivro']);
-                    $livro->setTitulo($linha['titulo']);
-                    $livro->setAutor($linha['autor']);
-                    $livro->setEditora($linha['editoria']);
-                    $livro->setQtdEstoque($linha['qtdEstoque']);
-                } while ($linha = mysqli_fetch_assoc($result));
-                mysqli_close($conecta);
-            }
+            try {
+                $rs = $conecta->prepare("select * from livro where "
+                        . "id = ?");
+                $rs->bindParam(1, $id);
+                if($rs->execute()){
+                    if($rs->rowCount() > 0){
+                        while($linha = $rs->fetch(PDO::FETCH_OBJ)){
+                            $livro->setIdLivro($linha->idlivro);
+                            $livro->setTitulo($linha->titulo);
+                            $livro->setAutor($linha->autor);
+                            $livro->setEditora($linha->editoria);
+                            $livro->setQtdEstoque($linha->qtdEstoque);
+                        }
+                    }
+                }
+            } catch (Exception $ex) {
+                $msg = 'Pesquisa Feita com primazia.';
+                return $msg + $ex;
+            }  
+            $conn = null;
             
         }else{
             echo "<script>alert('Banco inoperante!')</script>";
@@ -97,30 +131,34 @@ class daoLivro
     //método para atualizar dados da tabela livro
     public function atualizarLivroDAO(Livro $livro){
         $conn = new Conecta();
-        if($conn->conectadb()){
+        $msg = new Mensagem();
+        $conecta = $conn->conectadb();
+        if ($conecta) {
             $id = $livro->getIdLivro();
             $titulo = $livro->getTitulo();
             $autor = $livro->getAutor();
             $editora = $livro->getEditora();
             $qtdEstoque = $livro->getQtdEstoque();
-            $sql = "update livro set titulo = '$titulo',"
-                    . "autor = '$autor', editoria = '$editora', "
-                    . "qtdEstoque = '$qtdEstoque' where idlivro = '$id'";
-            $resp = mysqli_query($conn->conectadb(), $sql) or 
-                    die($conn->conectadb());
-            if($resp){
-                $msg = "<p style='color: blue;'>"
-                        . "Dados atualizados com sucesso</p>";
-                        header("Location: cadastroLivro.php");
-                        
-            }else{
-                $msg = $resp;
+            try {
+                $stmt = $conecta->prepare("update livro set titulo = ?, autor = ?, "
+                        . "editoria = ?, qtdEstoque = ? where idlivro = ?");
+                $stmt->bindParam(1, $titulo);
+                $stmt->bindParam(2, $autor);
+                $stmt->bindParam(3, $editora);
+                $stmt->bindParam(4, $qtdEstoque);
+                $stmt->bindParam(5, $id);
+                $stmt->execute();
+                $msg->setMsg("<p style='color: green;'>"
+                        . "Dados Atualizados com sucesso</p>");
+            } catch (Exception $ex) {
+                $msg->setMsg($ex);
             }
-        }else{
-            $msg = "<p style='color: red;'>"
-                        . "Erro na conexão com o banco de dados.</p>";
+
+        } else {
+            $msg->setMsg("<p style='color: red;'>"
+                        . "Erro na conexão com o banco de dados.</p>");
         }
-        mysqli_close($conn->conectadb());
+        $conn = null;
         return $msg;
     }
 }

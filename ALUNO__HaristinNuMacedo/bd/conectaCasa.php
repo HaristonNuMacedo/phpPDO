@@ -1,16 +1,17 @@
 <?php
 
 class Conecta{
-
-    
-        private $url = "localhost:3306";
-        private $user = "root";
-        private $password = "root";
-        private $base = "dblivro";
     
         public function conectadb(){
-            return mysqli_connect($this->url, $this->user, 
-                    $this->password, $this->base);
+            $pdo = null;
+            try{
+                $pdo = new PDO("mysql:host=localhost;dbname=dblivro", 
+                "root", "root");
+            }catch(Exception $ex){
+                echo "<script>alert('Erro na conexão com o "
+                    . "banco de dados.')</script>";
+            }
+            return $pdo;
         }
     }
 
