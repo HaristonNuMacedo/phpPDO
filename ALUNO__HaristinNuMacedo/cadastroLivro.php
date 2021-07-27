@@ -15,7 +15,7 @@ $btExcluir = FALSE;
 
 <head>
     <meta charset="UTF-8">
-    <title>Cadas de Livros</title>
+    <title>Casa de Livros</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -91,7 +91,7 @@ $btExcluir = FALSE;
     <div id="BordaForm200" class="border-dark"></div> <div id="BordaForm20" class="border-dark"></div>
     <div id="BordaForm300" class="border-dark"></div> <div id="BordaForm30" class="border-dark"></div>
 
-    <div class="container-fluid " style="position: relative;">
+    <div class="container-fluid ">
         <div class="row">
             <div class="col-md-10 offset-md-1">
                 <div class="card-header bg-dark text-center text-light" style="font-size: 25px; border-top: 3px solid white">
@@ -178,13 +178,13 @@ $btExcluir = FALSE;
 
                                 <div class="offset-md-2">
                                     <input type="submit" name="cadastrarLivro" class="btn btn-success btInput px-md-4" value="Enviar" 
-                                            <?php if($btEnviar == TRUE) echo "disabled"; ?>style="margin-right: 20px;">
+                                            <?php if($btEnviar == TRUE) echo "disabled"; ?>style="margin-right: 25px;">
                                     <input type="submit" name="atualizarLivro" class="btn btn-dark btInput px-md-4" value="Atualizar" 
-                                            <?php if($btAtualizar == FALSE) echo "disabled"; ?> style="margin-right: 20px;">
+                                            <?php if($btAtualizar == FALSE) echo "disabled"; ?> style="margin-right: 25px;">
                                             
                                     <button type="button" class="btn btn-warning btInput" 
                                             data-bs-toggle="modal" data-bs-target="#ModalExcluir"
-                                            <?php if($btExcluir == FALSE) echo "disabled"; ?> style="margin-right: 20px;">
+                                            <?php if($btExcluir == FALSE) echo "disabled"; ?> style="margin-right: 25px;">
                                         Excluir 
                                     </button>
 
@@ -218,7 +218,7 @@ $btExcluir = FALSE;
                                     </div>
                                     <!-- fim do modal para excluir -->
 
-                                    <input type="submit" name="limpar" class="btn btn-danger btInput px-md-4" value="Limpar" style="margin-right: 20px;">
+                                    <input type="submit" name="limpar" class="btn btn-danger btInput px-md-4" value="Limpar" style="margin-right: 25px;">
                                 </div>
                             </div>
                         </div>
