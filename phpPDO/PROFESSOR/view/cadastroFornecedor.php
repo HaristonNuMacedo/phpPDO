@@ -22,7 +22,7 @@ $btExcluir = FALSE;
     <!-- CSS only -->
 
     <link rel="sorcut icon" href="../PROFESSOR/book.png" type="image/png" style="width: 16px; height: 16px;">
-    <link rel="stylesheet" href="../PROFESSOR/css/DivBord.css">
+    <link rel="stylesheet" href="../css/DivBord.css">
 
     <style>
         .espaco {
@@ -159,8 +159,8 @@ $btExcluir = FALSE;
                     }
                     if (isset($_GET['id'])) {
                         $id = $_GET['id'];
-                        $pc = new LivroController();
-                        $pr = $pc->pesquisarLivroID($id);
+                        $fc = new FornecedorController();
+                        $pr = $fc->pesquisarFornecedorId($id);
                     }
                     ?>
 
@@ -179,6 +179,7 @@ $btExcluir = FALSE;
                                 <label>Nome do Fornecedor</label>
                                 <input type="text" class="form-control" name="nomeFornecedor" value="<?php echo $pr->getNomeFornecedor(); ?>">
                                 <!-- COLOCAR O VALUE AI EM CIMA value=""-->
+                                 
                                 <label>Logradouro</label>
                                 <input type="text" class="form-control" name="logradouro" value="<?php echo $pr->getLogradouro(); ?>">
                                 <label>Numero</label>
@@ -193,6 +194,7 @@ $btExcluir = FALSE;
                                 <input type="text" class="form-control" name="uf" value="<?php echo $pr->getUf(); ?>">
                                 <label>Cep</label>
                                 <input type="text" class="form-control" name="cep" value="<?php echo $pr->getCep(); ?>">
+                                    
                                 <label>Representante</label>
                                 <input type="text" class="form-control" name="representante" value="<?php echo $pr->getRepresentante(); ?>">
                                 <label>Email</label>
@@ -256,13 +258,13 @@ $btExcluir = FALSE;
                         <tr>
                             <th scope="col">idFornecedor</th>
                             <th scope="col">nomeFornecedor</th>
-                            <th scope="col">logradouro</th>
+                            <!--<th scope="col">logradouro</th>
                             <th scope="col">numero</th>
                             <th scope="col">complemento</th>
                             <th scope="col">bairro</th>
                             <th scope="col">cidade</th>
                             <th scope="col">uf</th>
-                            <th scope="col">cep</th>
+                            <th scope="col">cep</th>-->
                             <th scope="col">representante</th>
                             <th scope="col">email</th>
                             <th scope="col">telFixo</th>
@@ -288,13 +290,14 @@ $btExcluir = FALSE;
 
                         ?>
                                 <tr>
-                                    <td><?php print_r($ll->getIdLivro()); ?></td>
-                                    <td><?php print_r($ll->getTitulo()); ?></td>
-                                    <td><?php print_r($ll->getAutor()); ?></td>
-                                    <td><?php print_r($ll->getEditora()); ?></td>
-                                    <td><?php print_r($ll->getQtdEstoque()); ?></td>
+                                    <td><?php print_r($ll->getIdFornecedor()); ?></td>
+                                    <td><?php print_r($ll->getNomeFornecedor()); ?></td>
+                                    <td><?php print_r($ll->getRepresentante()); ?></td>
+                                    <td><?php print_r($ll->getEmail()); ?></td>
+                                    <td><?php print_r($ll->getTelFixo()); ?></td>
+                                    <td><?php print_r($ll->getTelCel()); ?></td>
                                     <td>
-                                        <a class="btn btn-outline-dark" href="cadastroLivro.php?id=<?php echo $ll->getIdLivro(); ?>">Editar</a>
+                                        <a class="btn btn-outline-dark" href="cadastroFornecedor.php?id=<?php echo $ll->getIdFornecedor(); ?>">Editar</a>
                                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $a; ?>">Excluir</button>
                                     </td>
                                 </tr>
@@ -307,8 +310,8 @@ $btExcluir = FALSE;
                                             </div>
                                             <div class="modal-body">
                                                 <form method="get" action="">
-                                                    <label><strong>Deseja excluir o livro <?php echo $ll->getTitulo(); ?>?</strong></label>
-                                                    <input type="hidden" name="ide" value="<?php echo $ll->getIdLivro(); ?>">
+                                                    <label><strong>Deseja excluir o livro <?php echo $ll->getNomeFornecedor(); ?>?</strong></label>
+                                                    <input type="hidden" name="ide" value="<?php echo $ll->getIdFornecedor(); ?>">
 
 
                                             </div>

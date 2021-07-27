@@ -30,4 +30,10 @@ class FornecedorController {
         $daofORNE = new DaoFornecedor();
         return $daofORNE->listarFornecedoresDAO();
     }
+
+    //método para retornar objeto produto com os dados do BD
+    public function pesquisarFornecedorId($id){
+        $daofORNE = new DaoFornecedor();
+        return $daofORNE->pesquisarFornecedorIdDAO($id);
+    }
 }

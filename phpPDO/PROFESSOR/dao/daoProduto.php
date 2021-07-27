@@ -8,26 +8,31 @@ class DaoProduto {
     public function inserir(Produto $produto){
         $conn = new Conecta();
         $msg = new Mensagem();
-        if($conn->conectadb()){
+        $conecta = $conn->conectadb();
+        if($conecta){
             $nomeProduto = $produto->getNomeProduto();
             $vlrCompra = $produto->getVlrCompra();
             $vlrVenda = $produto->getVlrVenda();
             $qtdEstoque = $produto->getQtdEstoque();
-            $sql = "insert into produto values (null, '$nomeProduto',"
-                    . "'$vlrCompra', '$vlrVenda', '$qtdEstoque')";
-            $resp = mysqli_query($conn->conectadb(), $sql) or 
-                    die($conn->conectadb());
-            if($resp){
+            try {
+                $stmt = $conecta->prepare("insert into produto values "
+                        . "(null,?,?,?,?)");
+                $stmt->bindParam(1, $nomeProduto);
+                $stmt->bindParam(2, $vlrCompra);
+                $stmt->bindParam(3, $vlrVenda);
+                $stmt->bindParam(4, $qtdEstoque);
+                $stmt->execute();
                 $msg->setMsg("<p style='color: green;'>"
                         . "Dados Cadastrados com sucesso</p>");
-            }else{
-                $msg->setMsg($resp);
+            } catch (Exception $ex) {
+                $msg->setMsg($ex);
             }
-        }else{
+
+        } else {
             $msg->setMsg("<p style='color: red;'>"
                         . "Erro na conexão com o banco de dados.</p>");
         }
-        mysqli_close($conn->conectadb());
+        $conn = null;
         return $msg;
     }
     
@@ -35,55 +40,67 @@ class DaoProduto {
     public function atualizarProdutoDAO(Produto $produto){
         $conn = new Conecta();
         $msg = new Mensagem();
-        if($conn->conectadb()){
+        $conecta = $conn->conectadb();
+        if($conecta){
             $id = $produto->getIdProduto();
             $nomeProduto = $produto->getNomeProduto();
             $vlrCompra = $produto->getVlrCompra();
             $vlrVenda = $produto->getVlrVenda();
             $qtdEstoque = $produto->getQtdEstoque();
-            $sql = "update produto set nome = '$nomeProduto',"
-                    . "valorCompra = '$vlrCompra', valorVenda = '$vlrVenda', "
-                    . "qtdEstoque = '$qtdEstoque' where id = '$id'";
-            $resp = mysqli_query($conn->conectadb(), $sql) or 
-                    die($conn->conectadb());
-            if($resp){
-                $msg->setMsg("<p style='color: blue;'>"
-                        . "Dados atualizados com sucesso</p>");
-            }else{
-                $msg->setMsg($resp);
+            try {
+                $stmt = $conecta->prepare("update produto set nome = ?, vlrCompra = ?, "
+                        . "vlrVenda = ?, qtdEstoque = ? where id = ?");
+                $stmt->bindParam(1, $nomeProduto);
+                $stmt->bindParam(2, $vlrCompra);
+                $stmt->bindParam(3, $vlrVenda);
+                $stmt->bindParam(4, $qtdEstoque);
+                $stmt->bindParam(5, $id);
+                $stmt->execute();
+                $msg->setMsg("<p style='color: green;'>"
+                        . "Dados Atualizados com sucesso</p>");
+            } catch (Exception $ex) {
+                $msg->setMsg($ex);
             }
-        }else{
+
+        } else {
             $msg->setMsg("<p style='color: red;'>"
                         . "Erro na conexão com o banco de dados.</p>");
         }
-        mysqli_close($conn->conectadb());
+        $conn = null;
         return $msg;
     }
     
     //método para carregar lista de produtos do banco de dados
     public function listarProdutosDAO(){
         $conn = new Conecta();
-        if($conn->conectadb()){
-            $sql = "select * from produto";
-            $query = mysqli_query($conn->conectadb(), $sql);
-            $result = mysqli_fetch_array($query);
-            $lista = array();
-            $a = 0;
-            if ($result) {
-                do {
-                    $produto = new Produto();
-                    $produto->setIdProduto($result['id']);
-                    $produto->setNomeProduto($result['nome']);
-                    $produto->setVlrCompra($result['vlrCompra']);
-                    $produto->setVlrVenda($result['vlrVenda']);
-                    $produto->setQtdEstoque($result['qtdEstoque']);
-                    $lista[$a] = $produto;
-                    $a++;
-                } while ($result = mysqli_fetch_array($query));
-            }
-            mysqli_close($conn->conectadb());
+        $conecta = $conn->conectadb();
+        if ($conecta) {
+            try{
+                $rs = $conecta->query("select * from produto");
+                $lista = array();
+                $a = 0;
+                if($rs->execute()){
+                    if($rs->rowCount() > 0){
+                        while($linha = $rs->fetch(PDO::FETCH_OBJ)){
+                            $produto = new Produto();
+                            $produto->setIdProduto($linha->id);
+                            $produto->setNomeProduto($linha->nome);
+                            $produto->setVlrCompra($linha->vlrCompra);
+                            $produto->setVlrVenda($linha->vlrVenda);
+                            $produto->setQtdEstoque($linha->qtdEstoque);
+                            $lista[$a] = $produto;
+                            $a++;
+                        }
+                    }
+                }
+            } catch (Exception $ex) {
+                $msg = 'Lista Feita com primazia.';
+                return $msg + $ex;
+            }  
+            $conn = null;
             return $lista;
         }
+    
     }
     
     //método para excluir produto na tabela produto
@@ -92,15 +109,22 @@ class DaoProduto {
         $conecta = $conn->conectadb();
         $msg = new Mensagem();
         if($conecta){
-            $sql = "delete from produto where id = '$id'";
-            mysqli_query($conecta, $sql);
-            mysqli_close($conecta);
-            $msg->setMsg("<p style='color: red;'>"
+            try {
+                $stmt = $conecta->prepare("delete from produto "
+                        . "where id = ?");
+                $stmt->bindParam(1, $id);
+                $stmt->execute();
+                $msg->setMsg("<p style='color: #d6bc71;'>"
                         . "Dados excluídos com sucesso.</p>");
+            } catch (Exception $ex) {
+                $msg->setMsg($ex);
+            }
         }else{
             $msg->setMsg("<p style='color: red;'>'Banco inoperante!'</p>"); 
         }
+        $conn = null;
         return $msg;
+
     }
     
     //método para os dados de produto por id
@@ -109,24 +133,33 @@ class DaoProduto {
         $conecta = $conn->conectadb();
         $produto = new Produto();
         if($conecta){
-            $sql = "select * from produto where id = '$id'";
-            $result = mysqli_query($conecta, $sql);
-            $linha = mysqli_fetch_assoc($result);
-            if ($linha) {
-                do {
-                    $produto->setIdProduto($linha['id']);
-                    $produto->setNomeProduto($linha['nome']);
-                    $produto->setVlrCompra($linha['vlrCompra']);
-                    $produto->setVlrVenda($linha['vlrVenda']);
-                    $produto->setQtdEstoque($linha['qtdEstoque']);
-                } while ($linha = mysqli_fetch_assoc($result));
-            }
-            mysqli_close($conecta);
+            try {
+                $rs = $conecta->prepare("select * from livro where "
+                        . "id = ?");
+                $rs->bindParam(1, $id);
+                if($rs->execute()){
+                    if($rs->rowCount() > 0){
+                        while($linha = $rs->fetch(PDO::FETCH_OBJ)){
+                            $produto->setIdProduto($linha->id);
+                            $produto->setNomeProduto($linha->nome);
+                            $produto->setVlrCompra($linha->vlrCompra);
+                            $produto->setVlrVenda($linha->vlrVenda);
+                            $produto->setQtdEstoque($linha->qtdEstoque);
+                        }
+                    }
+                }
+            } catch (Exception $ex) {
+                $msg = 'Pesquisa Feita com primazia.';
+                return $msg + $ex;
+            }  
+            $conn = null;
+            
         }else{
             echo "<script>alert('Banco inoperante!')</script>";
             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
-			 URL='../PHPMatutino01/cadastroProduto.php'\">"; 
+            URL='http://localhost/phpPDO/ALUNO__HaristinNuMacedo/cadastroLivro.php\">";
         }
         return $produto;
     }
 }
+

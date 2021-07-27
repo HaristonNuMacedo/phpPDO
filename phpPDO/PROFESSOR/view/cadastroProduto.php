@@ -14,8 +14,8 @@ $btExcluir = FALSE;
     <head>
         <meta charset="UTF-8">
         <title>Cadastro de Produto</title>
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
         <style>
             .btInput{
                 margin-top: 20px;
@@ -117,7 +117,7 @@ $btExcluir = FALSE;
                         
                         if (isset($_POST['excluirProduto'])) {
                             if ($pr != null) {
-                                $id = $_POST['idproduto'];
+                                $id = $_POST['id'];
                                 unset($_POST['excluirProduto']);
                                 $pc = new ProdutoController();
                                 $msg = $pc->excluirProduto($id);
