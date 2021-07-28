@@ -71,7 +71,7 @@ class DaoFornecedor {
             $TelFixo = $forne->getTelFixo();
             $TelCel = $forne->getTelCel();
             try {
-                $stmt = $conecta->prepare("update produto set nomeFornecedor = ?, logadrouro = ?, numero = ?, "
+                $stmt = $conecta->prepare("update fornecedor set nomeFornecedor = ?, logradouro = ?, numero = ?, "
                         . "complemento = ?, bairro = ?, cidade = ?, uf = ?, cep = ?, representante = ?, email = ?, "
                         . "telFixo = ?, telCel = ? where idFornecedor = ?");
                 $stmt->bindParam(1, $nomeFornecedor);
