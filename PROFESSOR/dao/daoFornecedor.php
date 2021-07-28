@@ -174,7 +174,7 @@ class DaoFornecedor {
         if($conecta){
             try {
                 $rs = $conecta->prepare("select * from fornecedor where "
-                        . "id = ?");
+                        . "idFornecedor = ?");
                 $rs->bindParam(1, $id);
                 if($rs->execute()){
                     if($rs->rowCount() > 0){

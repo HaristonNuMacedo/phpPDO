@@ -37,10 +37,11 @@ class FornecedorController {
         return $daofORNE->pesquisarFornecedorIdDAO($id);
     }
 
-    public function atualizarFornecedor($nomeFornecedor, $logradouro, $numero, $complemneto,
-                $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel, $id){
+    public function atualizarFornecedor($id, $nomeFornecedor, $logradouro, $numero, $complemneto,
+                $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel){
 
         $forne = new Fornecedor();
+        $forne->setIdFornecedor($id);
         $forne->setNomeFornecedor($nomeFornecedor);
         $forne->setLogradouro($logradouro);
         $forne->setNumero($numero);
@@ -52,8 +53,7 @@ class FornecedorController {
         $forne->setRepresentante($representante);
         $forne->setEmail($email);
         $forne->setTelFixo($telFixo);
-        $forne->setTelCel($telCel);
-        $forne->setIdFornecedor($id);
+        $forne->setTelCel($telCel);        
         
         $daoForne= new DaoFornecedor();
         return $daoForne->atualizarFornecedorDAO($forne);
