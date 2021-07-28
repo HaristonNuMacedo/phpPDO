@@ -4,7 +4,7 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/fornecedor.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
 
 $msg = new Mensagem();
-$pr = new Fornecedor();
+$fr = new Fornecedor();
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
 $btExcluir = FALSE;
@@ -117,9 +117,9 @@ $btExcluir = FALSE;
                             $telFixo = $_POST['telFixo'];
                             $telCel = $_POST['telCel'];
 
-                            $pc = new FornecedorController();
+                            $fc = new FornecedorController();
                             unset($_POST['cadastrarLivro']);
-                            $msg = $pc->inserirFornecedor($nomeFornecedor, $logradouro, $numero, $complemneto,
+                            $msg = $fc->inserirFornecedor($nomeFornecedor, $logradouro, $numero, $complemneto,
                             $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel);
                             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                 URL='cadastroFornecedor.php'\">";
@@ -127,40 +127,47 @@ $btExcluir = FALSE;
                     }
 
                     //método para atualizar dados do produto no BD
-                    if (isset($_POST['atualizarLivro'])) {
-                        $titulo = trim($_POST['nomeFornecedor']);
-                        if ($titulo != "") {
-                            $id = $_POST['logradouro'];
-                            $autor = $_POST['numero'];
-                            $editora = $_POST['Editora'];
-                            $qtdEstoque = $_POST['qtdEstoque'];
+                    if (isset($_POST['atualizarFornecedor'])) {
+                        $nomeFornecedor = ($_POST['nomeFornecedor']);
+                        if ($nomeFornecedor != "") {      
+                            $logradouro = $_POST['logradouro'];
+                            $numero = $_POST['numero'];
+                            $complemneto = $_POST['complemento'];
+                            $bairro = $_POST['bairro'];
+                            $cidade = $_POST['cidade'];
+                            $uf = $_POST['uf'];
+                            $cep = $_POST['cep'];
+                            $representante = $_POST['representante'];
+                            $email = $_POST['email'];
+                            $telFixo = $_POST['telFixo'];
+                            $telCel = $_POST['telCel'];
 
-                            $pc = new LivroController();
-                            unset($_POST['atualizarLivro']);
-                            echo $pc->atualizarLivro($id, $titulo, 
-                                    $autor, $editora, $qtdEstoque);
+                            $fc = new FornecedorController();
+                            unset($_POST['atualizarFornecedor']);
+                            echo $fc->atualizarFornecedor($nomeFornecedor, $logradouro, $numero, $complemneto,
+                            $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel, $id);
                             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                 URL='../cadastroFornecedor.php'\">";
                         }
                     }
 
-                    if (isset($_POST['excluirLivro'])) {
+                    if (isset($_POST['excluirFornecedor'])) {
                         if ($pr != null) {
-                            $id = $_POST['idlivro']; 
-                            $lc = new LivroController();
-                            $lc->excluirLivro($id);
+                            $id = $_POST['idFornecedor']; 
+                            $fc = new FornecedorController();
+                            $fc->excluirFornecedor($id);
                             #$id = $pr->getIdLivro();
                         }
                     }
                     if (isset($_POST['limpar'])) {
-                        $pr = null;
+                        $fr = null;
                         unset($_GET['id']);
                         header("Location: cadastroLivro.php");
                     }
-                    if (isset($_GET['id'])) {
-                        $id = $_GET['id'];
+                    if (isset($_GET['idF'])) {
+                        $id = $_GET['idF'];
                         $fc = new FornecedorController();
-                        $pr = $fc->pesquisarFornecedorId($id);
+                        $fr = $fc->pesquisarFornecedorId($id);
                     }
                     ?>
 
@@ -169,45 +176,45 @@ $btExcluir = FALSE;
                             <div class="col-md-8 offset-md-2">
                                 <strong>Código: <label>
                                         <?php
-                                        if ($pr != null) {
-                                            echo $pr->getIdFornecedor();
+                                        if ($fr != null) {
+                                            echo $fr->getIdFornecedor();
                                         }
                                         ?>
                                     </label></strong>
-                                <input type="hidden" name="idFornecedor" value="<?php echo $pr->getIdFornecedor(); ?>">
+                                <input type="hidden" name="idFornecedor" value="<?php echo $fr->getIdFornecedor(); ?>">
                                 <br>
                                 <label>Nome do Fornecedor</label>
-                                <input type="text" class="form-control" name="nomeFornecedor" value="<?php echo $pr->getNomeFornecedor(); ?>">
+                                <input type="text" class="form-control" name="nomeFornecedor" value="<?php echo $fr->getNomeFornecedor(); ?>">
                                 <!-- COLOCAR O VALUE AI EM CIMA value=""-->
                                  
                                 <label>Logradouro</label>
-                                <input type="text" class="form-control" name="logradouro" value="<?php echo $pr->getLogradouro(); ?>">
+                                <input type="text" class="form-control" name="logradouro" value="<?php echo $fr->getLogradouro(); ?>">
                                 <label>Numero</label>
-                                <input type="number" class="form-control" name="numero" value="<?php echo $pr->getNumero(); ?>">
+                                <input type="number" class="form-control" name="numero" value="<?php echo $fr->getNumero(); ?>">
                                 <label>Complemento</label>
-                                <input type="text" class="form-control" name="complemento" value="<?php echo $pr->getComplemneto(); ?>">
+                                <input type="text" class="form-control" name="complemento" value="<?php echo $fr->getComplemneto(); ?>">
                                 <label>Bairro</label>
-                                <input type="text" class="form-control" name="bairro" value="<?php echo $pr->getBairro(); ?>">
+                                <input type="text" class="form-control" name="bairro" value="<?php echo $fr->getBairro(); ?>">
                                 <label>Cidade</label>
-                                <input type="text" class="form-control" name="cidade" value="<?php echo $pr->getCidade(); ?>">
+                                <input type="text" class="form-control" name="cidade" value="<?php echo $fr->getCidade(); ?>">
                                 <label>Uf</label>
-                                <input type="text" class="form-control" name="uf" value="<?php echo $pr->getUf(); ?>">
+                                <input type="text" class="form-control" name="uf" value="<?php echo $fr->getUf(); ?>">
                                 <label>Cep</label>
-                                <input type="text" class="form-control" name="cep" value="<?php echo $pr->getCep(); ?>">
+                                <input type="text" class="form-control" name="cep" value="<?php echo $fr->getCep(); ?>">
                                     
                                 <label>Representante</label>
-                                <input type="text" class="form-control" name="representante" value="<?php echo $pr->getRepresentante(); ?>">
+                                <input type="text" class="form-control" name="representante" value="<?php echo $fr->getRepresentante(); ?>">
                                 <label>Email</label>
-                                <input type="text" class="form-control" name="email" value="<?php echo $pr->getEmail(); ?>">
+                                <input type="text" class="form-control" name="email" value="<?php echo $fr->getEmail(); ?>">
                                 <label>TelFixo</label>
-                                <input type="text" class="form-control" name="telFixo" value="<?php echo $pr->getTelFixo(); ?>">
+                                <input type="text" class="form-control" name="telFixo" value="<?php echo $fr->getTelFixo(); ?>">
                                 <label>TelCel</label>
-                                <input type="text" class="form-control" name="telCel" value="<?php echo $pr->getTelCel(); ?>">
+                                <input type="text" class="form-control" name="telCel" value="<?php echo $fr->getTelCel(); ?>">
 
                                 <div class="offset-md-2">
                                     <input type="submit" name="cadastrarFornecedor" class="btn btn-success btInput px-md-4" value="Enviar" 
                                             <?php if($btEnviar == TRUE) echo "disabled"; ?>style="margin-right: 25px;">
-                                    <input type="submit" name="atualizarLivro" class="btn btn-dark btInput px-md-4" value="Atualizar" 
+                                    <input type="submit" name="atualizarFornecedor" class="btn btn-dark btInput px-md-4" value="Atualizar" 
                                             <?php if($btAtualizar == FALSE) echo "disabled"; ?> style="margin-right: 25px;">
                                             
                                     <button type="button" class="btn btn-warning btInput" 
@@ -234,7 +241,7 @@ $btExcluir = FALSE;
                                                     <h5>Deseja Excluir?</h5>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <input type="submit" name="excluirProduto"
+                                                    <input type="submit" name="excluirFornecedor"
                                                            class="btn btn-success "
                                                            value="Sim">
                                                     <input type="submit" 
@@ -278,18 +285,27 @@ $btExcluir = FALSE;
                         $listaLivros = $lcTable->listarFornecedores();
                         $a = 0;
                         if ($listaLivros != null) {
-                            foreach ($listaLivros as $ll) {
+                            foreach ($listaLivros as $fr) {
                                 $a++;
                         ?>
                                 <tr>
-                                    <td><?php print_r($ll->getIdFornecedor()); ?></td>
-                                    <td><?php print_r($ll->getNomeFornecedor()); ?></td>
-                                    <td><?php print_r($ll->getRepresentante()); ?></td>
-                                    <td><?php print_r($ll->getEmail()); ?></td>
-                                    <td><?php print_r($ll->getTelFixo()); ?></td>
-                                    <td><?php print_r($ll->getTelCel()); ?></td>
+                                    <td><?php print_r($fr->getIdFornecedor()); ?></td>
+                                    <td><?php print_r($fr->getNomeFornecedor()); ?></td>
+                                    <!--
+                                    <td><?php print_r($fr->getLogradouro()); ?></td>
+                                    <td><?php print_r($fr->getNumero()); ?></td>
+                                    <td><?php print_r($fr->getComplemneto()); ?></td>
+                                    <td><?php print_r($fr->getBairro()); ?></td>
+                                    <td><?php print_r($fr->getCidade()); ?></td>
+                                    <td><?php print_r($fr->getUf()); ?></td>
+                                    <td><?php print_r($fr->getCep()); ?></td>-->
+
+                                    <td><?php print_r($fr->getRepresentante()); ?></td>
+                                    <td><?php print_r($fr->getEmail()); ?></td>
+                                    <td><?php print_r($fr->getTelFixo()); ?></td>
+                                    <td><?php print_r($fr->getTelCel()); ?></td>
                                     <td>
-                                        <a class="btn btn-outline-dark" href="cadastroFornecedor.php?id=<?php echo $ll->getIdFornecedor(); ?>">Editar</a>
+                                        <a class="btn btn-outline-dark" href="cadastroFornecedor.php?id=<?php echo $fr->getIdFornecedor(); ?>">Editar</a>
                                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $a; ?>">Excluir</button>
                                     </td>
                                 </tr>
@@ -301,9 +317,9 @@ $btExcluir = FALSE;
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="get" action="../controller/excluiFornecedor.php">
-                                                    <label><strong>Deseja excluir o Fornecedor <?php echo $ll->getNomeFornecedor(); ?>?</strong></label>
-                                                    <input type="hidden" name="ide" value="<?php echo $ll->getIdFornecedor(); ?>">
+                                                <form method="get" action="../view/cadastroFornecedor.php">
+                                                    <label><strong>Deseja excluir o Fornecedor <?php echo $fr->getNomeFornecedor(); ?>?</strong></label>
+                                                    <input type="hidden" name="ideF" value="<?php echo $fr->getIdFornecedor(); ?>">
 
 
                                             </div>
@@ -327,8 +343,8 @@ $btExcluir = FALSE;
         </div>
     </div>
 
-    <script src="js/bootstrap.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 </body>
 
 </html>

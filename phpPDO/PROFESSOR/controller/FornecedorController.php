@@ -60,7 +60,7 @@ class FornecedorController {
     }
 
     //método para excluir produto
-    public function excluirProduto($id){
+    public function excluirFornecedor($id){
         $daoForne = new DaoFornecedor();
         return $daoForne->excluirFornecedorDAO($id);
     }

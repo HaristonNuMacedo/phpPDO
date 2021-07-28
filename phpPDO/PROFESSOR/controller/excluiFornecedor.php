@@ -1,7 +1,6 @@
 <?php
-include_once './phpPDO/PROFESSOR/controller/excluiFornecedor.php';
-include_once './phpPDO/PROFESSOR/controller/FornecedorController.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/controller/FornecedorController.php';
 
-$id = $_REQUEST['ide'];
-$pc = new ProdutoController();
-$pc->excluirProduto($id);
+$id = $_REQUEST['ideF'];
+$fc = new FornecedorController();
+$fc->excluirFornecedor($id);
