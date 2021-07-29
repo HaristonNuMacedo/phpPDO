@@ -2,9 +2,9 @@
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/dao/daoPessoa.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
 
-class ProdutoController {
+class PessoaController {
 
-    public function inserirProduto($nome, $nasc, $lo, $se, $per, $email, $cpf, $fkEnd){
+    public function inserirPessoa($nome, $nasc, $lo, $se, $per, $email, $cpf, $fkEnd){
         $pessoa = new Pessoa();
         $pessoa->setNome($nome);
         $pessoa->setDtNasc($nasc);

@@ -1,3 +1,15 @@
+<?php
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/controller/PessoaController.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
+
+$msg = new Mensagem();
+$ps = new Pessoa();
+
+$btEnviar = FALSE;
+$btAtualizar = FALSE;
+$btExcluir = FALSE;
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,9 +23,16 @@
                 margin-top: 20px;
                 margin-bottom: 20px;
             }
+
+            .DivDados{
+                border-top: 3px solid #353535;
+                border-bottom: 3px solid #353535;
+                height: 15px;
+                margin: 15px 0px;
+            }
         </style>
     </head>
-    <body>
+    <body style="background-color: rgb(212, 212, 212)">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Navbar</a>
@@ -50,41 +69,49 @@
             <div class="row" style="margin-top: 30px;">
                 <div class="col-8 offset-2">
 
-                    <div class="card-header bg-light text-center border"
-                         style="padding-bottom: 15px; padding-top: 15px;">
+                    <div class="card-header bg-dark text-center text-light"
+                         style="padding-bottom: 15px; padding-top: 15px; font-size: 25px; border: 2px solid #252525;">
                         Cadastro de Cliente
                     </div>
                     <?php
                     //envio dos dados para o BD
-                    if (isset($_POST['cadastrar'])) {
-                        include_once 'controller/PessoaController.php';
-                        $nome = $_POST['nome'];
-                        $dtNasc = $_POST['dtNasc'];
-                        $login = $_POST['login'];
-                        $senha = $_POST['senha'];
-                        $perfil = $_POST['perfil'];
-                        $cpf = $_POST['cpf'];
-                        $email = $_POST['email'];
+                    if (isset($_POST['cadastrarPessoa'])) {
+                        $nome = trim($_POST['nome']);
+                        if ($nome != "") {
+                            $dtNasc = $_POST['dtNasc'];
+                            $login = $_POST['login'];
+                            $senha = $_POST['senha'];
+                            $perfil = $_POST['perfil'];
+                            $cpf = $_POST['cpf'];
+                            $email = $_POST['email'];
+                            $fkEndereco = $_POST['Endereco'];
 
-                        $pc = new PessoaController();
-                        echo "<p>".$pc->inserirPessoa($nome, $dtNasc, 
-                            $login, $senha, $perfil, $email, $cpf)."</p>";
+                            $pessoa = new PessoaController();
+                                unset($_POST['cadastrarPessoa']);
+                                $msg = $pessoa->inserirPessoa($nome, $dtNasc,
+                                        $login, $perfil, $senha, $email, $cpf, $fkEndereco);
+                                echo $msg->getMsg();
+                                echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                                    URL='cadastroPessoa.php'\">";
+                        }
                     }
+
                     ?>
-                    <div class="card-body border">
+                    <div class="card-body" style="border: 2px solid #252525;">
                         <form method="post" action="">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Código: </label> <br> 
+
+                                    <label>Código: </label> <br><br>
                                     <label>Nome Completo</label>  
                                     <input class="form-control" type="text" 
-                                           name="nome">
+                                           name="nome" >
                                     <label>Data de Nascimento</label>  
                                     <input class="form-control" type="date" 
-                                           name="dtNasc">  
+                                           name="dtNasc" >  
                                     <label>E-Mail</label>  
                                     <input class="form-control" type="email" 
-                                           name="email"> 
+                                           name="email" > 
                                     <label>CPF</label>  
                                     <input class="form-control" type="text" 
                                            name="cpf">
@@ -93,23 +120,53 @@
                                     <br>
                                     <label>Login</label>  
                                     <input class="form-control" type="text" 
-                                           name="login">  
+                                           name="login" >  
                                     <label>Senha</label>  
                                     <input class="form-control" type="password" 
-                                           name="senha"> 
+                                           name="senha" > 
                                     <label>Conf. Senha</label>  
                                     <input class="form-control" type="password" 
                                            name="senha2"> 
                                     <label>Perfil</label>  
                                     <select name="perfil" class="form-control">
                                         <option>[--Selecione--]</option>
-                                        <option>Cliente</option>
-                                        <option>Funcionário</option>
+                                        <option >Cliente</option>
+                                        <option >Funcionário</option>
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="DivDados"></div>
+                            <div class="card-header bg-dark text-center text-white border" 
+                                style="padding-bottom: 15px; padding-top: 15px; font-size: 25px;">
+                                    Endereço do cliente
+                            </div>
+                            <div class="col-12 ">
+                                <div class="card-header bg-light text-start text-dark border">
+                                    <label style="margin-top: 10px;">Código: </label><br><br>
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <label>CEP</label><br>
+                                            <input class="form-control" type="text" name="cep">
+                                            <label>Logradouro</label>
+                                            <input class="form-control" type="text" name="logradouro">
+                                            <label>Complemento</label>
+                                            <input class="form-control" type="text" name="complemento">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Bairro</label>
+                                            <input class="form-control" type="text" name="bairro">
+                                            <label>Cidade</label>
+                                            <input class="form-control" type="text" name="cidade">
+                                            <label>UF</label>
+                                            <input class="form-control" type="text" name="uf">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-6 offset-4">
-                                <input type="submit" name="cadastrar"
+                                <input type="submit" name="cadastrarPessoa"
                                        class="btn btn-success btInput" value="Enviar">
                                 &nbsp;&nbsp;
                                 <input type="reset" 
@@ -120,6 +177,9 @@
                 </div>
             </div>
         </div>
+
+        <br>
+
         <script src="../js/bootstrap.js"></script>
         <script src="../js/bootstrap.min.js"></script>
     </body>
