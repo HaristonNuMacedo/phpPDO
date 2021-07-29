@@ -82,6 +82,27 @@ class DaoPessoa {
             return $lista;
         }
     
+        /*
+            Tabela pessoa 
+            idPessoa - Int Primary key auto_increment
+            nome - Varchar
+            dtNasc - DATE
+            login - varchar
+            senha - varchar
+            perfil - varchar
+            email - varcahr
+            cpf - varchar
+            fkEndereco int
+
+            Tabela Endereco
+            idEndereco - int
+            cep - varchar
+            logradouro - varchar
+            complemento - varchar
+            bairro - varchar
+            cidade - varchar
+            uf - varchar(2)
+        */
     
     }
 
