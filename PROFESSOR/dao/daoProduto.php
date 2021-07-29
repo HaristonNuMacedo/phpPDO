@@ -2,6 +2,7 @@
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/bd/conecta.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/produto.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/fornecedor.php';
 
 class DaoProduto {
     
@@ -14,13 +15,15 @@ class DaoProduto {
             $vlrCompra = $produto->getVlrCompra();
             $vlrVenda = $produto->getVlrVenda();
             $qtdEstoque = $produto->getQtdEstoque();
+            $fornecedor = $produto->getFornecedor();
             try {
                 $stmt = $conecta->prepare("insert into produto values "
-                        . "(null,?,?,?,?)");
+                        . "(null,?,?,?,?,?)");
                 $stmt->bindParam(1, $nomeProduto);
                 $stmt->bindParam(2, $vlrCompra);
                 $stmt->bindParam(3, $vlrVenda);
                 $stmt->bindParam(4, $qtdEstoque);
+                $stmt->bindParam(5, $fornecedor);
                 $stmt->execute();
                 $msg->setMsg("<p style='color: green;'>"
                         . "Dados Cadastrados com sucesso</p>");
@@ -76,7 +79,8 @@ class DaoProduto {
         $conecta = $conn->conectadb();
         if ($conecta) {
             try{
-                $rs = $conecta->query("select * from produto");
+                $rs = $conecta->query("select * from produto inner join fornecedor "
+                        . "on produto.fk_Fornecedor = fornecedor.idFornecedor");
                 $lista = array();
                 $a = 0;
                 if($rs->execute()){
@@ -88,6 +92,24 @@ class DaoProduto {
                             $produto->setVlrCompra($linha->vlrCompra);
                             $produto->setVlrVenda($linha->vlrVenda);
                             $produto->setQtdEstoque($linha->qtdEstoque);
+
+                            $forn = new Fornecedor();
+                            $forn->setIdFornecedor($linha->idFornecedor);
+                            $forn->setNomeFornecedor($linha->nomeFornecedor);
+                            $forn->setLogradouro($linha->logradouro);
+                            $forn->setNumero($linha->numero);
+                            $forn->setComplemneto($linha->complemento);
+                            $forn->setBairro($linha->bairro);
+                            $forn->setCidade($linha->cidade);
+                            $forn->setUf($linha->uf);
+                            $forn->setCep($linha->cep);
+                            $forn->setRepresentante($linha->representante);
+                            $forn->setEmail($linha->email);
+                            $forn->setTelFixo($linha->telFixo);
+                            $forn->setTelCel($linha->telCel);
+
+                            $produto->setfornecedor($forn);
+
                             $lista[$a] = $produto;
                             $a++;
                         }
@@ -134,7 +156,7 @@ class DaoProduto {
         $produto = new Produto();
         if($conecta){
             try {
-                $rs = $conecta->prepare("select * from livro where "
+                $rs = $conecta->prepare("select * from produto where "
                         . "id = ?");
                 $rs->bindParam(1, $id);
                 if($rs->execute()){
@@ -157,7 +179,7 @@ class DaoProduto {
         }else{
             echo "<script>alert('Banco inoperante!')</script>";
             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
-            URL='http://localhost/phpPDO/ALUNO__HaristinNuMacedo/cadastroLivro.php\">";
+            URL='http://localhost/phpPDO/phpPDO/PROFESSOR/view/cadastroProduto.php\">";
         }
         return $produto;
     }

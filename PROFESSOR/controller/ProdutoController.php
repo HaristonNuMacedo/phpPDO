@@ -5,12 +5,13 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/produto.php';
 class ProdutoController {
     
     public function inserirProduto($nomeProduto, $vlrCompra, 
-            $vlrVenda, $qtdEstoque){
+            $vlrVenda, $qtdEstoque, $fk){
         $produto = new Produto();
         $produto->setNomeProduto($nomeProduto);
         $produto->setVlrCompra($vlrCompra);
         $produto->setVlrVenda($vlrVenda);
         $produto->setQtdEstoque($qtdEstoque);
+        $produto->setFornecedor($fk);
         
         $daoProduto = new DaoProduto();
         return $daoProduto->inserir($produto);

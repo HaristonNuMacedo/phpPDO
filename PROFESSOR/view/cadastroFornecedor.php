@@ -48,6 +48,26 @@ $btExcluir = FALSE;
             text-align: center;
 
         }
+
+        .StyleFornecedor01{
+            position: absolute;
+            top: 450px;
+            left: 75px;
+            font-size: 50px;
+            transform: rotate(90deg);
+            letter-spacing: .4rem;
+
+        }
+
+        .StyleFornecedor02{
+            position: absolute;
+            top: 450px;
+            right: 75px;
+            font-size: 50px;
+            transform: rotate(90deg);
+            letter-spacing: .4rem;
+            
+        }
     </style>
 </head>
 
@@ -199,6 +219,13 @@ $btExcluir = FALSE;
                     <form method="post" action="">
                         <div class="row g-8">
                             <div class="col-md-8 offset-md-2">
+                                <div class="StyleFornecedor01">
+                                    <label><strong>FORNECEDOR</strong></label>
+                                </div>
+                                <div class="StyleFornecedor02">
+                                    <label><strong>FORNECEDOR</strong></label>
+                                </div>
+
                                 <strong>Código: <label>
                                         <?php
                                         if ($fr != null) {

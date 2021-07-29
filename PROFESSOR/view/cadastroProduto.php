@@ -13,16 +13,17 @@ $btExcluir = FALSE;
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Cadastro de Produto</title>
+        <title>Cadastro</title>
         <link rel="stylesheet" href="../css/bootstrap.css">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <style>
             .btInput{
-                margin-top: 20px;
+                margin-top: 20px; text-align: center;
             }
             .pad15{
                 padding-bottom: 15px; padding-top: 15px;
             }
+            th, input, td{text-align: center;}
         </style>
     </head>
     <body>
@@ -73,10 +74,12 @@ $btExcluir = FALSE;
                                 $vlrCompra = $_POST['vlrCompra'];
                                 $vlrVenda = $_POST['vlrVenda'];
                                 $qtdEstoque = $_POST['qtdEstoque'];
+                                $fkfornecedor = $_POST['idfornecedor'];
 
                                 $pc = new ProdutoController();
                                 unset($_POST['cadastrarProduto']);
-                                $msg = $pc->inserirProduto($nomeProduto, $vlrCompra, $vlrVenda, $qtdEstoque);
+                                $msg = $pc->inserirProduto($nomeProduto, $vlrCompra,
+                                        $vlrVenda, $qtdEstoque, $fkfornecedor);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                     URL='cadastroProduto.php'\">";
@@ -117,7 +120,7 @@ $btExcluir = FALSE;
                         
                         if (isset($_POST['excluirProduto'])) {
                             if ($pr != null) {
-                                $id = $_POST['id'];
+                                $id = $_POST['idproduto'];
                                 unset($_POST['excluirProduto']);
                                 $pc = new ProdutoController();
                                 $msg = $pc->excluirProduto($id);
@@ -168,6 +171,25 @@ $btExcluir = FALSE;
                                     <label>Qtde em Estoque</label>  
                                     <input class="form-control" type="number" 
                                            value="<?php echo $pr->getQtdEstoque(); ?>" name="qtdEstoque">
+                                    
+                                    <label>Fornecedor</label>  
+                                    <select class="form-control"  name="idfornecedor">
+                                        <option>[--SELECIONE--]</option>
+                                        <?php
+                                          include_once '../controller/FornecedorController.php';
+                                          $fcc = new FornecedorController();
+                                          $listaFornecedores = $fcc->listarFornecedores();
+                                          if($listaFornecedores != null){
+                                              foreach ($listaFornecedores as $lf){
+                                                  ?>
+                                            <option value="<?php echo $lf->getIdFornecedor();?>">
+                                                    <?php echo $lf->getNomeFornecedor();?></option>
+                                        <?php
+                                              }
+                                          }
+                                        ?>
+                                    </select>
+
                                     <input type="submit" name="cadastrarProduto"
                                            class="btn btn-success btInput" value="Enviar"
                                            <?php if($btEnviar == TRUE) echo "disabled"; ?>>
@@ -224,10 +246,11 @@ $btExcluir = FALSE;
                                style="border-radius: 3px; overflow:hidden;">
                             <thead class="table-dark">
                                 <tr><th>Código</th>
-                                    <th>Nome</th>
+                                    <th>Produto</th>
                                     <th>Compra (R$)</th>
                                     <th>Venda (R$)</th>
                                     <th>Estoque</th>
+                                    <th>Fornecedor</th>
                                     <th>Ações</th></tr>
                             </thead>
                             <tbody>
@@ -238,6 +261,8 @@ $btExcluir = FALSE;
                                 if ($listaProdutos != null) {
                                     foreach ($listaProdutos as $lp) {
                                         $a++;
+
+                                        include_once '../model/fornecedor.php';
                                         ?>
                                         <tr>
                                             <td><?php print_r($lp->getIdProduto()); ?></td>
@@ -245,14 +270,15 @@ $btExcluir = FALSE;
                                             <td><?php print_r($lp->getVlrCompra()); ?></td>
                                             <td><?php print_r($lp->getVlrVenda()); ?></td>
                                             <td><?php print_r($lp->getQtdEstoque()); ?></td>
+                                            <td><?php print_r($lp->getFornecedor()->getNomeFornecedor()); ?></td>
                                             <td><a href="cadastroProduto.php?id=<?php echo $lp->getIdProduto(); ?>"
                                                    class="btn btn-light">
-                                                    <img src="img/edita.png" width="32"></a>
+                                                    <img src="../img/edita.png" width="32"></a>
                                                 </form>
                                                 <button type="button" 
                                                         class="btn btn-light" data-bs-toggle="modal" 
                                                         data-bs-target="#exampleModal<?php echo $a; ?>">
-                                                    <img src="img/delete.png" width="32"></button></td>
+                                                    <img src="../img/delete.png" width="32"></button></td>
                                         </tr>
                                         <!-- Modal -->
                                     <div class="modal fade" id="exampleModal<?php echo $a; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -292,8 +318,8 @@ $btExcluir = FALSE;
     </div>
 
 
-    <script src="js/bootstrap.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script>
         var myModal = document.getElementById('myModal')
         var myInput = document.getElementById('myInput')
