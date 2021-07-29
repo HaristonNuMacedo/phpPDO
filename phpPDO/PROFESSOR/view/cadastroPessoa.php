@@ -30,6 +30,12 @@ $btExcluir = FALSE;
                 height: 15px;
                 margin: 15px 0px;
             }
+
+            label{
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin-top: 10px;
+            }
         </style>
     </head>
     <body style="background-color: rgb(212, 212, 212)">
@@ -101,8 +107,7 @@ $btExcluir = FALSE;
                         <form method="post" action="">
                             <div class="row">
                                 <div class="col-md-6">
-
-                                    <label>Código: </label> <br><br>
+                                    <label>Código: </label> <br>
                                     <label>Nome Completo</label>  
                                     <input class="form-control" type="text" 
                                            name="nome" >
@@ -142,8 +147,8 @@ $btExcluir = FALSE;
                                     Endereço do cliente
                             </div>
                             <div class="col-12 ">
-                                <div class="card-header bg-light text-start text-dark border">
-                                    <label style="margin-top: 10px;">Código: </label><br><br>
+                                <div class="card-header text-start text-dark border">
+                                    <label style="margin-top: 10px;">Código: </label><br>
                                     <div class="row">
                                         <div class="col-md-6 ">
                                             <label>CEP</label><br>
