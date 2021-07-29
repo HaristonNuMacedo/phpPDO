@@ -116,7 +116,7 @@ $btExcluir = FALSE;
     <div class="container-fluid ">
         <div class="row">
             <div class="col-md-10 offset-md-1">
-                <div class="card-header bg-dark text-center text-light" style="font-size: 25px; border-top: 3px solid white">
+                <div class="card-header bg-dark text-center text-light" style="font-size: 35px; border-top: 3px solid white">
                     Cadastro de Fornecedor
                 </div>
                 <div class="card-body border">
