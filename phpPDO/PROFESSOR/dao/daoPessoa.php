@@ -2,6 +2,8 @@
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/bd/conecta.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/fornecedor.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
+
 
 class DaoPessoa {
     
@@ -67,7 +69,17 @@ class DaoPessoa {
                             $pessoa->setPerfil($linha->perfil);
                             $pessoa->setEmail($linha->email);
                             $pessoa->setCpf($linha->cpf);
-                            $pessoa->setFkEndereco($linha->fkEndereco);
+
+                            $end = new Endereco();
+                            $end->setIdEndereco($linha->idEndereco);
+                            $end->setCep($linha->cep);
+                            $end->setLogradouro($linha->logradouro);
+                            $end->setComplemento($linha->complemento);
+                            $end->setBairro($linha->bairro);
+                            $end->setCidade($linha->cidade);
+                            $end->setUf($linha->uf);
+
+                            $pessoa->setFkEndereco($end);
 
                             $lista[$a] = $pessoa;
                             $a++;
