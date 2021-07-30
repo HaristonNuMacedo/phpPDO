@@ -106,7 +106,7 @@ class DaoPessoa {
             cpf - varchar
             fkEndereco int
 
-            Tabela Endereco
+            Tabela endereco
             idEndereco - int
             cep - varchar
             logradouro - varchar
