@@ -25,6 +25,11 @@ $btExcluir = FALSE;
     <link rel="sorcut icon" href="../img/book.png" type="image/png" style="width: 16px; height: 16px;">
     <link rel="stylesheet" href="../css/DivBord.css">
 
+    <!-- SweetAlert -->
+    <script src="sweetalert2.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+
     <style>
         .espaco {
             padding: 24px;
@@ -69,6 +74,17 @@ $btExcluir = FALSE;
             
         }
     </style>
+
+    <script>
+    function mascara(t, mask){
+        var i = t.value.length;
+        var saida = mask.substring(1,0);
+        var texto = mask.substring(i)
+        if (texto.substring(0,1) != saida){
+        t.value += texto.substring(0,1);
+        }
+    }
+ </script>
 </head>
 
 <body>
@@ -127,7 +143,7 @@ $btExcluir = FALSE;
                         $nomeFornecedor = ($_POST['NomeFornecedor']);
                         if ($nomeFornecedor != "") {
                             $logradouro = $_POST['Logradouro'];
-                            $numero = $_POST['Numero'];
+                            
                             $complemneto = $_POST['Complemento'];
                             $bairro = $_POST['Bairro'];
                             $cidade = $_POST['Cidade'];
@@ -140,7 +156,7 @@ $btExcluir = FALSE;
 
                             $fc = new FornecedorController();
                             unset($_POST['cadastrarLivro']);
-                            $msg = $fc->inserirFornecedor($nomeFornecedor, $logradouro, $numero, $complemneto,
+                            $msg = $fc->inserirFornecedor($nomeFornecedor, $logradouro, $complemneto,
                             $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel);
                             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                 URL='http://localhost/phpPDO/phpPDO/PROFESSOR/view/cadastroFornecedor.php'\">";
@@ -153,7 +169,7 @@ $btExcluir = FALSE;
                         if ($nomeFornecedor != "") {     
                             $id = $_POST['IdFornecedor'];
                             $logradouro = $_POST['Logradouro'];
-                            $numero = $_POST['Numero'];
+                            
                             $complemneto = $_POST['Complemento'];
                             $bairro = $_POST['Bairro'];
                             $cidade = $_POST['Cidade'];
@@ -166,7 +182,7 @@ $btExcluir = FALSE;
 
                             $fc = new FornecedorController();
                             unset($_POST['atualizarFornecedor']);
-                            $fc->atualizarFornecedor($id, $nomeFornecedor, $logradouro, $numero, $complemneto,
+                            $fc->atualizarFornecedor($id, $nomeFornecedor, $logradouro, $complemneto,
                                 $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel);
                                 $msg->setMsg("<p style='color: green;'>"
                                 . "Dados Atualizados com sucesso</p>");
@@ -239,29 +255,28 @@ $btExcluir = FALSE;
                                 <input type="text" class="form-control" name="NomeFornecedor" value="<?php echo $fr->getNomeFornecedor(); ?>">
                                 <!-- COLOCAR O VALUE AI EM CIMA value=""-->
                                  
-                                <label>Logradouro</label>
-                                <input type="text" class="form-control" name="Logradouro" value="<?php echo $fr->getLogradouro(); ?>">
-                                <label>Numero</label>
-                                <input type="number" class="form-control" name="Numero" value="<?php echo $fr->getNumero(); ?>">
+                                <label>Logradouro/Rua</label>
+                                <input type="text" class="form-control" name="Logradouro" id="rua" value="<?php echo $fr->getLogradouro(); ?>">
+                                
                                 <label>Complemento</label>
-                                <input type="text" class="form-control" name="Complemento" value="<?php echo $fr->getComplemneto(); ?>">
+                                <input type="text" class="form-control" name="Complemento" id="complemento" value="<?php echo $fr->getComplemneto(); ?>">
                                 <label>Bairro</label>
-                                <input type="text" class="form-control" name="Bairro" value="<?php echo $fr->getBairro(); ?>">
+                                <input type="text" class="form-control" name="Bairro" id="bairro" value="<?php echo $fr->getBairro(); ?>">
                                 <label>Cidade</label>
-                                <input type="text" class="form-control" name="Cidade" value="<?php echo $fr->getCidade(); ?>">
+                                <input type="text" class="form-control" name="Cidade" id="cidade" value="<?php echo $fr->getCidade(); ?>">
                                 <label>Uf</label>
-                                <input type="text" class="form-control" name="Uf" value="<?php echo $fr->getUf(); ?>" maxlength="2">
+                                <input type="text" class="form-control" name="Uf" id="uf" value="<?php echo $fr->getUf(); ?>" maxlength="2">
                                 <label>Cep</label>
-                                <input type="text" class="form-control" name="Cep" value="<?php echo $fr->getCep(); ?>">
+                                <input type="text" class="form-control" name="Cep" id="cep" onkeypress="mascara(this, '#####-###')" maxlength="9" value="<?php echo $fr->getCep(); ?>">
                                     
                                 <label>Representante</label>
                                 <input type="text" class="form-control" name="Representante" value="<?php echo $fr->getRepresentante(); ?>">
                                 <label>Email</label>
                                 <input type="text" class="form-control" name="Email" value="<?php echo $fr->getEmail(); ?>">
                                 <label>TelFixo</label>
-                                <input type="text" class="form-control" name="TelFixo" value="<?php echo $fr->getTelFixo(); ?>">
+                                <input type="text" class="form-control" name="TelFixo" onkeypress="mascara(this, '####-####')" maxlength="9" value="<?php echo $fr->getTelFixo(); ?>">
                                 <label>TelCel</label>
-                                <input type="text" class="form-control" name="TelCel" value="<?php echo $fr->getTelCel(); ?>">
+                                <input type="text" class="form-control" name="TelCel" onkeypress="mascara(this, '## #####-####')" maxlength="13" value="<?php echo $fr->getTelCel(); ?>">
 
                                 <div class="offset-md-2">
                                     <input type="submit" name="cadastrarFornecedor" class="btn btn-success btInput px-md-4" value="Enviar" 
@@ -320,7 +335,6 @@ $btExcluir = FALSE;
                             <th scope="col">idFornecedor</th>
                             <th scope="col">nomeFornecedor</th>
                             <!--<th scope="col">logradouro</th>
-                            <th scope="col">numero</th>
                             <th scope="col">complemento</th>
                             <th scope="col">bairro</th>
                             <th scope="col">cidade</th>
@@ -348,7 +362,6 @@ $btExcluir = FALSE;
                                     <td><?php print_r($ff->getNomeFornecedor()); ?></td>
                                     <!--
                                     <td><?php print_r($ff->getLogradouro()); ?></td>
-                                    <td><?php print_r($ff->getNumero()); ?></td>
                                     <td><?php print_r($ff->getComplemneto()); ?></td>
                                     <td><?php print_r($ff->getBairro()); ?></td>
                                     <td><?php print_r($ff->getCidade()); ?></td>
@@ -402,6 +415,91 @@ $btExcluir = FALSE;
     
     <script src="../js/bootstrap.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/JQuery.js"></script>
+    <script src="../js/JQuery.min.js"></script>
+
+    <!-- CONTROLE DE ENDEREÇO (ViaCep)-->
+    <script>
+
+        $(document).ready(function() {
+
+            function limpa_formulário_cep() {
+                // Limpa valores do formulário de cep.
+                $("#rua").val("");
+                $("#bairro").val("");
+                $("#cidade").val("");
+                $("#uf").val("");
+            }
+            
+            //Quando o campo cep perde o foco.
+            $("#cep").blur(function() {
+
+                //Nova variável "cep" somente com dígitos.
+                var cep = $(this).val().replace(/\D/g, '');
+
+                //Verifica se campo cep possui valor informado.
+                if (cep != "") {
+
+                    //Expressão regular para validar o CEP.
+                    var validacep = /^[0-9]{8}$/;
+
+                    //Valida o formato do CEP.
+                    if(validacep.test(cep)) {
+
+                        //Preenche os campos com "..." enquanto consulta webservice.
+                        $("#rua").val("...");
+                        $("#bairro").val("...");
+                        $("#cidade").val("...");
+                        $("#uf").val("...");
+
+                        //Consulta o webservice viacep.com.br/
+                        $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                            if (!("erro" in dados)) {
+                                //Atualiza os campos com os valores da consulta.
+                                $("#rua").val(dados.logradouro);
+                                $("#bairro").val(dados.bairro);
+                                $("#cidade").val(dados.localidade);
+                                $("#uf").val(dados.uf);
+
+                            } //end if.
+                            else {
+                                //CEP pesquisado não foi encontrado.
+                                limpa_formulário_cep();
+                                Swal.fire({
+                                    title: 'CEP não encontrado.',
+                                    text: 'Digite o CEP corretamente!',
+                                    icon: 'error',
+                                    confirmButtonText: 'Ok'
+                                })
+                                
+                            }
+                        });
+                    } //end if.
+                    else {
+                        //cep é inválido.
+                        limpa_formulário_cep();
+                        Swal.fire({
+                            title: 'CEP não encontrado!',
+                            text: 'Digite o CEP corretamente!',
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
+                } //end if.
+                else {
+                    //cep sem valor, limpa formulário.
+                    limpa_formulário_cep();
+                }
+            });
+        });
+
+    </script>
+
+<!-- 
+Máscaras
+https://www.vivaolinux.com.br/script/Mascara-JavaScript-para-Campos-de-Telefone-Celular-e-CEP -->
+
 </body>
 
 </html>

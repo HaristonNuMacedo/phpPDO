@@ -4,13 +4,12 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/fornecedor.php';
 
 class FornecedorController {
     
-    public function inserirFornecedor($nomeFornecedor, $logradouro, $numero, $complemneto,
+    public function inserirFornecedor($nomeFornecedor, $logradouro, $complemneto,
                 $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel){
 
         $forne = new Fornecedor();
         $forne->setNomeFornecedor($nomeFornecedor);
         $forne->setLogradouro($logradouro);
-        $forne->setNumero($numero);
         $forne->setComplemneto($complemneto);
         $forne->setBairro($bairro);
         $forne->setCidade($cidade);
@@ -37,14 +36,13 @@ class FornecedorController {
         return $daofORNE->pesquisarFornecedorIdDAO($id);
     }
 
-    public function atualizarFornecedor($id, $nomeFornecedor, $logradouro, $numero, $complemneto,
+    public function atualizarFornecedor($id, $nomeFornecedor, $logradouro, $complemneto,
                 $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel){
 
         $forne = new Fornecedor();
         $forne->setIdFornecedor($id);
         $forne->setNomeFornecedor($nomeFornecedor);
         $forne->setLogradouro($logradouro);
-        $forne->setNumero($numero);
         $forne->setComplemneto($complemneto);
         $forne->setBairro($bairro);
         $forne->setCidade($cidade);

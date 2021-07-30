@@ -100,7 +100,6 @@ class DaoProduto {
                             $forn->setIdFornecedor($linha->idFornecedor);
                             $forn->setNomeFornecedor($linha->nomeFornecedor);
                             $forn->setLogradouro($linha->logradouro);
-                            $forn->setNumero($linha->numero);
                             $forn->setComplemneto($linha->complemento);
                             $forn->setBairro($linha->bairro);
                             $forn->setCidade($linha->cidade);
@@ -177,7 +176,6 @@ class DaoProduto {
                             $forn->setIdFornecedor($linha->idFornecedor);
                             $forn->setNomeFornecedor($linha->nomeFornecedor);
                             $forn->setLogradouro($linha->logradouro);
-                            $forn->setNumero($linha->numero);
                             $forn->setComplemneto($linha->complemento);
                             $forn->setBairro($linha->bairro);
                             $forn->setCidade($linha->cidade);

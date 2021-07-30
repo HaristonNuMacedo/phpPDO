@@ -4,7 +4,6 @@ class Fornecedor {
     private $idFornecedor;
     private $nomeFornecedor;
     private $logradouro;
-    private $numero;
     private $complemneto;
     private $bairro;
     private $cidade;
@@ -72,26 +71,6 @@ class Fornecedor {
     public function setLogradouro($logradouro)
     {
         $this->logradouro = $logradouro;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of numero
-     */ 
-    public function getNumero()
-    {
-        return $this->numero;
-    }
-
-    /**
-     * Set the value of numero
-     *
-     * @return  self
-     */ 
-    public function setNumero($numero)
-    {
-        $this->numero = $numero;
 
         return $this;
     }
