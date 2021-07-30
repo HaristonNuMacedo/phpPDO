@@ -203,7 +203,7 @@ $btExcluir = FALSE;
                     if (isset($_POST['limpar'])) {
                         $fr = null;
                         unset($_GET['id']);
-                        header("Location: cadastroLivro.php");
+                        header("Location: cadastroFornecedor.php");
                     }
 
                     if (isset($_GET['id'])) {
@@ -305,7 +305,9 @@ $btExcluir = FALSE;
                                     </div>
                                     <!-- fim do modal para excluir -->
 
-                                    <input type="submit" name="limpar" class="btn btn-danger btInput px-md-4" value="Limpar" style="margin-right: 25px;">
+                                    <input type="submit" 
+                                           class="btn btn-light btInput" 
+                                           name="limpar" value="Limpar">
                                 </div>
                             </div>
                         </div>

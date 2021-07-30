@@ -143,6 +143,7 @@ $btExcluir = FALSE;
                             unset($_GET['id']);
                             header("Location: cadastroProduto.php");
                         }
+
                         if (isset($_GET['id'])) {
                             $btEnviar = TRUE;
                             $btAtualizar = TRUE;

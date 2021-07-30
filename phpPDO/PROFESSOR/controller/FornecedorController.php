@@ -64,4 +64,9 @@ class FornecedorController {
         $daoForne = new DaoFornecedor();
         return $daoForne->excluirFornecedorDAO($id);
     }
+
+    //método para limpar formulário
+    public function limpar(){
+        return $fr = new Fornecedor();
+    }
 }
