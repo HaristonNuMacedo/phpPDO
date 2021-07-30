@@ -2,9 +2,16 @@
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/controller/ProdutoController.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/produto.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/fornecedor.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/controller/FornecedorController.php';
 
+$fcc = new FornecedorController();
 $msg = new Mensagem();
 $pr = new Produto();
+
+$fornecedor = new Fornecedor();
+$pr->setFornecedor($fornecedor);
+
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
 $btExcluir = FALSE;
@@ -94,11 +101,12 @@ $btExcluir = FALSE;
                                 $vlrCompra = $_POST['vlrCompra'];
                                 $vlrVenda = $_POST['vlrVenda'];
                                 $qtdEstoque = $_POST['qtdEstoque'];
+                                $fkfornecedor = $_POST['idfornecedor'];
 
                                 $pc = new ProdutoController();
                                 unset($_POST['atualizarProduto']);
                                 $msg = $pc->atualizarProduto($id, $nomeProduto, 
-                                        $vlrCompra, $vlrVenda, $qtdEstoque);
+                                        $vlrCompra, $vlrVenda, $qtdEstoque, $fkfornecedor);
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                     URL='cadastroProduto.php'\">";
@@ -176,14 +184,22 @@ $btExcluir = FALSE;
                                     <select class="form-control"  name="idfornecedor">
                                         <option>[--SELECIONE--]</option>
                                         <?php
-                                          include_once '../controller/FornecedorController.php';
-                                          $fcc = new FornecedorController();
                                           $listaFornecedores = $fcc->listarFornecedores();
                                           if($listaFornecedores != null){
                                               foreach ($listaFornecedores as $lf){
                                                   ?>
-                                            <option value="<?php echo $lf->getIdFornecedor();?>">
-                                                    <?php echo $lf->getNomeFornecedor();?></option>
+                                            <option value="<?php echo $lf->getIdFornecedor();?>"
+                                            <?php
+                                            $fk = $pr->getFornecedor()->getIdFornecedor();
+                                            if($pr->getFornecedor()->getIdFornecedor() != ""){
+                                                if($lf->getIdFornecedor() == 
+                                                        $pr->getFornecedor()->getIdFornecedor()){
+                                                    echo "selected = 'selected'";
+                                                }
+                                            }
+                                            ?>
+                                            >
+                                            <?php echo $lf->getNomeFornecedor();?></option>
                                         <?php
                                               }
                                           }

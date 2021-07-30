@@ -19,13 +19,14 @@ class ProdutoController {
     
     //método para atualizar dados de produto no BD
     public function atualizarProduto($id, $nomeProduto, $vlrCompra, 
-            $vlrVenda, $qtdEstoque){
+            $vlrVenda, $qtdEstoque, $fkfornecedor){
         $produto = new Produto();
         $produto->setIdProduto($id);
         $produto->setNomeProduto($nomeProduto);
         $produto->setVlrCompra($vlrCompra);
         $produto->setVlrVenda($vlrVenda);
         $produto->setQtdEstoque($qtdEstoque);
+        $produto->setFornecedor($fkfornecedor);
         
         $daoProduto = new DaoProduto();
         return $daoProduto->atualizarProdutoDAO($produto);

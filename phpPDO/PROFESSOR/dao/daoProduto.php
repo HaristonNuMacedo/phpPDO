@@ -50,15 +50,18 @@ class DaoProduto {
             $vlrCompra = $produto->getVlrCompra();
             $vlrVenda = $produto->getVlrVenda();
             $qtdEstoque = $produto->getQtdEstoque();
+            $fkFornecedor = $produto->getFornecedor();
             try {
                 $stmt = $conecta->prepare("update produto set nome = ?, vlrCompra = ?, "
-                        . "vlrVenda = ?, qtdEstoque = ? where id = ?");
+                        . "vlrVenda = ?, qtdEstoque = ?, fk_Fornecedor = ? where id = ?");
                 $stmt->bindParam(1, $nomeProduto);
                 $stmt->bindParam(2, $vlrCompra);
                 $stmt->bindParam(3, $vlrVenda);
                 $stmt->bindParam(4, $qtdEstoque);
-                $stmt->bindParam(5, $id);
+                $stmt->bindParam(5, $fkFornecedor);
+                $stmt->bindParam(6, $id);
                 $stmt->execute();
+
                 $msg->setMsg("<p style='color: green;'>"
                         . "Dados Atualizados com sucesso</p>");
             } catch (Exception $ex) {
@@ -108,7 +111,7 @@ class DaoProduto {
                             $forn->setTelFixo($linha->telFixo);
                             $forn->setTelCel($linha->telCel);
 
-                            $produto->setfornecedor($forn);
+                            $produto->setFornecedor($forn);
 
                             $lista[$a] = $produto;
                             $a++;
@@ -152,12 +155,14 @@ class DaoProduto {
     //método para os dados de produto por id
     public function pesquisarProdutoIdDAO($id){
         $conn = new Conecta();
+        $msg = new Mensagem();
         $conecta = $conn->conectadb();
         $produto = new Produto();
         if($conecta){
             try {
-                $rs = $conecta->prepare("select * from produto where "
-                        . "id = ?");
+                $rs = $conecta->prepare("select * from produto inner join "
+                                . "fornecedor on produto.fk_Fornecedor = fornecedor.idFornecedor "
+                                . "where produto.id = ?");
                 $rs->bindParam(1, $id);
                 if($rs->execute()){
                     if($rs->rowCount() > 0){
@@ -167,6 +172,24 @@ class DaoProduto {
                             $produto->setVlrCompra($linha->vlrCompra);
                             $produto->setVlrVenda($linha->vlrVenda);
                             $produto->setQtdEstoque($linha->qtdEstoque);
+
+                            $forn = new Fornecedor();
+                            $forn->setIdFornecedor($linha->idFornecedor);
+                            $forn->setNomeFornecedor($linha->nomeFornecedor);
+                            $forn->setLogradouro($linha->logradouro);
+                            $forn->setNumero($linha->numero);
+                            $forn->setComplemneto($linha->complemento);
+                            $forn->setBairro($linha->bairro);
+                            $forn->setCidade($linha->cidade);
+                            $forn->setUf($linha->uf);
+                            $forn->setCep($linha->cep);
+                            $forn->setRepresentante($linha->representante);
+                            $forn->setEmail($linha->email);
+                            $forn->setTelFixo($linha->telFixo);
+                            $forn->setTelCel($linha->telCel);
+
+                            $produto->setFornecedor($forn);
+
                         }
                     }
                 }
