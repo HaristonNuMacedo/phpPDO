@@ -28,8 +28,10 @@ class DaoEndereco {
                 $stmt->bindParam(6, $uf);
                 $stmt->execute();
 
-                $msg->setMsg("<p style='color: green;'>"
-                    . "Dados Cadastrados com sucesso</p>");
+                $msg->setMsg("Swal.fire({
+                                title: 'Dados Cadastrados com sucesso.',
+                                icon: 'sucess'
+                            })");
 
             } catch (Exception $ex) {
                 $msg->setMsg($ex);
