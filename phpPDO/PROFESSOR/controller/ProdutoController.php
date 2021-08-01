@@ -37,6 +37,8 @@ class ProdutoController {
         $daoProduto = new DaoProduto();
         return $daoProduto->listarProdutosDAO();
     }
+
+    //método para carregar a lista de produtos que vem da DAO
     
     //método para excluir produto
     public function excluirProduto($id){

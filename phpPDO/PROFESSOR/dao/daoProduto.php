@@ -83,7 +83,8 @@ class DaoProduto {
         if ($conecta) {
             try{
                 $rs = $conecta->query("select * from produto inner join fornecedor "
-                        . "on produto.fk_Fornecedor = fornecedor.idFornecedor");
+                        . "on produto.fk_Fornecedor = fornecedor.idFornecedor "
+                        . "order by produto.id");
                 $lista = array();
                 $a = 0;
                 if($rs->execute()){
@@ -126,7 +127,7 @@ class DaoProduto {
         }
     
     }
-    
+
     //método para excluir produto na tabela produto
     public function excluirProdutoDAO($id){
         $conn = new Conecta();
@@ -161,7 +162,7 @@ class DaoProduto {
             try {
                 $rs = $conecta->prepare("select * from produto inner join "
                                 . "fornecedor on produto.fk_Fornecedor = fornecedor.idFornecedor "
-                                . "where produto.id = ?");
+                                . "where produto.id = ? ");
                 $rs->bindParam(1, $id);
                 if($rs->execute()){
                     if($rs->rowCount() > 0){
