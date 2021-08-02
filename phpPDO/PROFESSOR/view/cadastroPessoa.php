@@ -19,6 +19,12 @@ $btExcluir = FALSE;
         <title>Cadastro Pessoa</title>
         <link rel="stylesheet" href="../css/bootstrap.css">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+        <!-- SweetAlert -->
+        <script src="sweetalert2.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="sweetalert2.min.css">
+
         <style>
             .btInput{
                 padding: 10px 20px 10px 20px;
@@ -83,7 +89,7 @@ $btExcluir = FALSE;
                     </div>
                     <?php
                     //envio dos dados para o BD
-                    /*if (isset($_POST['cadastrarPessoa'])) {
+                    if (isset($_POST['cadastrarPessoa'])) {
                         $nome = trim($_POST['nome']);
                         if ($nome != "") {
                             $dtNasc = $_POST['dtNasc'];
@@ -94,22 +100,39 @@ $btExcluir = FALSE;
                             $email = $_POST['email'];
                             $fkEndereco = $_POST['Endereco'];
 
+                            $cep = $_POST['cep'];
+                            $logra = $_POST['logradouro'];
+                            $comple = $_POST['complemento'];
+                            $bairro = $_POST['bairro'];             
+                            $cidade = $_POST['cidade'];
+                            $uf = $_POST['uf'];
+
                             $pessoa = new PessoaController();
                                 unset($_POST['cadastrarPessoa']);
                                 $msg = $pessoa->inserirPessoa($nome, $dtNasc,
-                                        $login, $perfil, $senha, $email, $cpf, $fkEndereco);
+                                        $login, $perfil, $senha, $email, $cpf, $fkEndereco, 
+                                        $cep, $logra, $comple, $bairro, $cidade, $uf);
                                 echo $msg->getMsg();
-                                echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                                echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
                                     URL='cadastroPessoa.php'\">";
+
+                                echo "<script>
+                                    Swal.fire({
+                                        title: 'Dados Cadastrados!',
+                                        text: 'Os dados foram PROCESSADOS com sucesso.',
+                                        icon: 'sucess',
+                                        confirmButtonText: 'Ok'
+                                    })
+                                </script>";
                         }
-                    }*/
+                    }
 
 
                     ?>
                     <div class="card-body" style="border: 2px solid #252525;">
                         <form method="post" action="">
                             <div class="row">
-                            <div class="col-md-6 ">
+                            <div class="col-md-6 ">  
                             <label>Código: </label> <br>
                                             <label>CEP</label><br>
                                             <input class="form-control" type="text" name="cep">

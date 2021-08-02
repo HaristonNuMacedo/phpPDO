@@ -8,7 +8,7 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/endereco.php';
 
 class DaoPessoa {
     
-    public function inserirPessoaDAO(pessoa $ps){
+    public function inserirPessoaDAO(pessoa $ps, Endereco $end){
         $conn = new Conecta();
         $msg = new Mensagem();
         $conecta = $conn->conectadb();
@@ -21,10 +21,26 @@ class DaoPessoa {
             $email = $ps->getEmail();
             $cpf = $ps->getCpf();
             $fkEndereco = $ps->getFkEndereco();
+
+            $cep = $end->getCep();
+            $logradouro = $end->getLogradouro();
+            $complemento = $end->getComplemento();
+            $bairro = $end->getBairro();
+            $cidade = $end->getCidade();
+            $uf = $end->getUf();
             try {
-                $stmt = $conecta->prepare("START TRANSACTION; insert into "
-                        . "endereco values (null, ?, ?, ?, ?, ?, ?); "
-                        . "insert into pessoa values (null, ?, ?, ?, ?, ?, ?, ?, ?); COMMIT;");
+                $stmt = $conecta->prepare("START TRANSACTION; "
+                        . "insert into endereco values (null, ?, ?, ?, ?, ?, ?); "
+                        . "insert into pessoa values (null, ?, ?, ?, ?, ?, ?, ?, ?); "
+                        . "COMMIT;");
+                $stmt->bindParam(1, $cep);
+                $stmt->bindParam(2, $logradouro);
+                $stmt->bindParam(3, $complemento);
+                $stmt->bindParam(4, $bairro);
+                $stmt->bindParam(5, $cidade);
+                $stmt->bindParam(6, $uf);
+                $stmt->execute();
+                
                 $stmt->bindParam(1, $nome);
                 $stmt->bindParam(2, $dtNasc);
                 $stmt->bindParam(3, $login);
