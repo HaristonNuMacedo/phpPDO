@@ -36,6 +36,7 @@ class DaoFornecedor {
                 $stmt->bindParam(10, $TelFixo);
                 $stmt->bindParam(11, $TelCel);
                 $stmt->execute();
+                
                 $msg->setMsg("<p style='color: green;'>"
                         . "Dados Cadastrados com sucesso</p>");
             } catch (Exception $ex) {

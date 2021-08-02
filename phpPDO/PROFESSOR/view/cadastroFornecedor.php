@@ -158,8 +158,17 @@ $btExcluir = FALSE;
                             unset($_POST['cadastrarLivro']);
                             $msg = $fc->inserirFornecedor($nomeFornecedor, $logradouro, $complemneto,
                             $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel);
-                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
                                 URL='http://localhost/phpPDO/phpPDO/PROFESSOR/view/cadastroFornecedor.php'\">";
+                            
+                            echo "<script>
+                            Swal.fire({
+                                title: 'Dados Cadastrados!',
+                                text: 'Os dados foram PROCESSADOS com sucesso.',
+                                icon: 'sucess',
+                                confirmButtonText: 'Ok'
+                            })
+                            </script>";
                         }
                     }
 
@@ -186,10 +195,20 @@ $btExcluir = FALSE;
                                 $bairro, $cidade, $uf, $cep, $representante, $email, $telFixo, $telCel);
                                 $msg->setMsg("<p style='color: green;'>"
                                 . "Dados Atualizados com sucesso</p>");
-                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
                                 URL='http://localhost/phpPDO/phpPDO/PROFESSOR/view/cadastroFornecedor.php'\">";
-
+                            
+                            echo "<script>
+                            Swal.fire({
+                                title: 'Dados Atualizados!',
+                                text: 'Os dados foram REPROCESSADOS com sucesso.',
+                                icon: 'sucess',
+                                confirmButtonText: 'Ok'
+                            })
+                            </script>";
                         }
+
+                        
                     }
 
                     if (isset($_POST['excluir'])) {
@@ -200,8 +219,17 @@ $btExcluir = FALSE;
                             unset($_POST['excluir']);
                             $msg = $fc->excluirFornecedor($id);
                             echo $msg->getMsg();
-                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\" 3;
                                 URL='cadastroFornecedor.php'\">";
+                            
+                            echo "<script>
+                            Swal.fire({
+                                title: 'Dados Excluídos!',
+                                text: 'Os dados foram DELETADOS com sucesso.',
+                                icon: 'sucess',
+                                confirmButtonText: 'Ok'
+                            })
+                            </script>";
                         }
                     }
 
@@ -211,15 +239,25 @@ $btExcluir = FALSE;
                             $fc = new FornecedorController();
                             $fc->excluirFornecedor($id);                          
                             #$id = $pr->getIdLivro();
-                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
                                 URL='cadastroFornecedor.php'\">";
+
+                            echo "<script>
+                            Swal.fire({
+                                title: 'Dados Excluídos!',
+                                text: 'Os dados foram DELETADOS com sucesso.',
+                                icon: 'sucess',
+                                confirmButtonText: 'Ok'
+                            })
+                            </script>";
                         }
                     }
 
                     if (isset($_POST['limpar'])) {
                         $fr = null;
-                        unset($_GET['id']);
-                        header("Location: cadastroFornecedor.php");
+                        unset($_GET['idFornecedor']);
+                        echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
+                                URL='cadastroFornecedor.php'\">";
                     }
 
                     if (isset($_GET['id'])) {
