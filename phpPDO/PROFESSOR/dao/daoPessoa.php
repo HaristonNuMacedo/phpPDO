@@ -3,6 +3,7 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/bd/conecta.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/fornecedor.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/endereco.php';
 
 
 class DaoPessoa {
@@ -21,8 +22,9 @@ class DaoPessoa {
             $cpf = $ps->getCpf();
             $fkEndereco = $ps->getFkEndereco();
             try {
-                $stmt = $conecta->prepare("insert into pessoa values "
-                        . "(null,?,?,?,?,?,?,?,?)");
+                $stmt = $conecta->prepare("START TRANSACTION; insert into "
+                        . "endereco values (null, ?, ?, ?, ?, ?, ?); "
+                        . "insert into pessoa values (null, ?, '02-01-2001', 'tyest', 'logado12', 'umNada','Kabulozo005@gmail.com', '06845503184', '1'); COMMIT;");
                 $stmt->bindParam(1, $nome);
                 $stmt->bindParam(2, $dtNasc);
                 $stmt->bindParam(3, $login);
@@ -114,6 +116,8 @@ class DaoPessoa {
             bairro - varchar
             cidade - varchar
             uf - varchar(2)
+
+            START TRANSACTION; insert into endereco values (null, '71258385', 'kdsj02', 'naosei', 'teste', 'casadojõas', 'df'); insert into pessoa values (null, 'teste', '02-01-2001', 'tyest', 'logado12', 'umNada','Kabulozo005@gmail.com', '06845503184', '1'); COMMIT;
         */
     
     }

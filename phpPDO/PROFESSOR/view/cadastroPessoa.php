@@ -1,10 +1,12 @@
 <?php
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/controller/PessoaController.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/endereco.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
 
 $msg = new Mensagem();
 $ps = new Pessoa();
+$en = new Endereco();
 
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
@@ -77,11 +79,11 @@ $btExcluir = FALSE;
 
                     <div class="card-header bg-dark text-center text-light"
                          style="padding-bottom: 15px; padding-top: 15px; font-size: 25px; border: 2px solid #252525;">
-                        Cadastro de Cliente
+                        Endereço do cliente
                     </div>
                     <?php
                     //envio dos dados para o BD
-                    if (isset($_POST['cadastrarPessoa'])) {
+                    /*if (isset($_POST['cadastrarPessoa'])) {
                         $nome = trim($_POST['nome']);
                         if ($nome != "") {
                             $dtNasc = $_POST['dtNasc'];
@@ -100,14 +102,44 @@ $btExcluir = FALSE;
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                     URL='cadastroPessoa.php'\">";
                         }
-                    }
+                    }*/
+
 
                     ?>
                     <div class="card-body" style="border: 2px solid #252525;">
                         <form method="post" action="">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label>Código: </label> <br>
+                            <div class="col-md-6 ">
+                            <label>Código: </label> <br>
+                                            <label>CEP</label><br>
+                                            <input class="form-control" type="text" name="cep">
+                                            <label>Logradouro</label>
+                                            <input class="form-control" type="text" name="logradouro">
+                                            <label>Complemento</label>
+                                            <input class="form-control" type="text" name="complemento">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Bairro</label>
+                                            <input class="form-control" type="text" name="bairro">
+                                            <label>Cidade</label>
+                                            <input class="form-control" type="text" name="cidade">
+                                            <label>UF</label>
+                                            <input class="form-control" type="text" name="uf">
+                                        </div>
+                                
+                            </div>
+
+                            <div class="DivDados"></div>
+                            <div class="card-header bg-dark text-center text-white border" 
+                                style="padding-bottom: 15px; padding-top: 15px; font-size: 25px;">
+                                    Cadastro de Cliente
+                            </div>
+                            <div class="col-12 ">
+                                <div class="card-header text-start text-dark border">
+                                    <label style="margin-top: 10px;">Código: </label><br>
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                    
                                     <label>Nome Completo</label>  
                                     <input class="form-control" type="text" 
                                            name="nome" >
@@ -139,33 +171,7 @@ $btExcluir = FALSE;
                                         <option >Funcionário</option>
                                     </select>
                                 </div>
-                            </div>
-
-                            <div class="DivDados"></div>
-                            <div class="card-header bg-dark text-center text-white border" 
-                                style="padding-bottom: 15px; padding-top: 15px; font-size: 25px;">
-                                    Endereço do cliente
-                            </div>
-                            <div class="col-12 ">
-                                <div class="card-header text-start text-dark border">
-                                    <label style="margin-top: 10px;">Código: </label><br>
-                                    <div class="row">
-                                        <div class="col-md-6 ">
-                                            <label>CEP</label><br>
-                                            <input class="form-control" type="text" name="cep">
-                                            <label>Logradouro</label>
-                                            <input class="form-control" type="text" name="logradouro">
-                                            <label>Complemento</label>
-                                            <input class="form-control" type="text" name="complemento">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>Bairro</label>
-                                            <input class="form-control" type="text" name="bairro">
-                                            <label>Cidade</label>
-                                            <input class="form-control" type="text" name="cidade">
-                                            <label>UF</label>
-                                            <input class="form-control" type="text" name="uf">
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

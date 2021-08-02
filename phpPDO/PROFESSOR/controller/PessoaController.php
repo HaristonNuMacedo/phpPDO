@@ -1,10 +1,15 @@
 <?php
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/dao/daoPessoa.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
+include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/endereco.php';
 
 class PessoaController {
 
-    public function inserirPessoa($nome, $nasc, $lo, $se, $per, $email, $cpf, $fkEnd){
+    public function inserirPessoa($nome, $nasc, $lo, $se, $per, $email, $cpf, $cep){
+        
+        $end = new Endereco();
+        $end->setCep($cep);
+
         $pessoa = new Pessoa();
         $pessoa->setNome($nome);
         $pessoa->setDtNasc($nasc);
@@ -13,7 +18,7 @@ class PessoaController {
         $pessoa->setPerfil($per);
         $pessoa->setEmail($email);
         $pessoa->setCpf($cpf);
-        $pessoa->setFkEndereco($fkEnd);
+        $pessoa->setFkEndereco($cep);
 
         $daoP = new DaoPessoa();
         return $daoP->inserirPessoaDAO($pessoa);
