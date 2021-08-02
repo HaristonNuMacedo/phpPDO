@@ -117,7 +117,10 @@ class DaoPessoa {
             cidade - varchar
             uf - varchar(2)
 
-            START TRANSACTION; insert into endereco values (null, '71258385', 'kdsj02', 'naosei', 'teste', 'casadojõas', 'df'); insert into pessoa values (null, 'teste', '02-01-2001', 'tyest', 'logado12', 'umNada','Kabulozo005@gmail.com', '06845503184', '1'); COMMIT;
+            START TRANSACTION; 
+                insert into endereco values (null, '71258385', 'kdsj02', 'naosei', 'teste', 'casadojõas', 'df'); 
+                insert into pessoa values (null, 'teste', '02-01-2001', 'tyest', 'logado12', 'umNada','Kabulozo005@gmail.com', '06845503184', '1'); 
+            COMMIT;
         */
     
     }
