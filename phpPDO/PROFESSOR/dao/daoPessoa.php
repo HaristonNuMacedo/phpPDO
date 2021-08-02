@@ -24,7 +24,7 @@ class DaoPessoa {
             try {
                 $stmt = $conecta->prepare("START TRANSACTION; insert into "
                         . "endereco values (null, ?, ?, ?, ?, ?, ?); "
-                        . "insert into pessoa values (null, ?, '02-01-2001', 'tyest', 'logado12', 'umNada','Kabulozo005@gmail.com', '06845503184', '1'); COMMIT;");
+                        . "insert into pessoa values (null, ?, ?, ?, ?, ?, ?, ?, ?); COMMIT;");
                 $stmt->bindParam(1, $nome);
                 $stmt->bindParam(2, $dtNasc);
                 $stmt->bindParam(3, $login);
