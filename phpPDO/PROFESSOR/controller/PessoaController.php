@@ -24,10 +24,11 @@ class PessoaController {
         $pessoa->setPerfil($per);
         $pessoa->setEmail($email);
         $pessoa->setCpf($cpf);
-        $pessoa->setFkEndereco($cep);
+
+        $pessoa->setFkEndereco($end);
 
         $daoP = new DaoPessoa();
-        return $daoP->inserirPessoaDAO($pessoa, $end);
+        return $daoP->inserirPessoaDAO($pessoa);
     }
 
     public function listarPessoas(){
