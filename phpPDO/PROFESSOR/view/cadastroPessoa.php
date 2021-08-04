@@ -5,8 +5,9 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/endereco.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
 
 $msg = new Mensagem();
-$ps = new Pessoa();
 $en = new Endereco();
+$ps = new Pessoa();
+$ps->setFkEndereco($en);
 
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
@@ -48,6 +49,18 @@ $btExcluir = FALSE;
                 margin-top: 10px;
             }
         </style>
+
+        <script>
+            function mascara(t, mask){
+                var i = t.value.length;
+                var saida = mask.substring(1,0);
+                var texto = mask.substring(i)
+                
+                if (texto.substring(0,1) != saida){
+                    t.value += texto.substring(0,1);
+                }
+            }
+        </script>
     </head>
     <body style="background-color: rgb(212, 212, 212)">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -95,37 +108,38 @@ $btExcluir = FALSE;
                     if (isset($_POST['cadastrarPessoa'])) {
                         $nome = trim($_POST['nome']);
                         if ($nome != "") {
-                            $dtNasc = $_POST['dtNasc'];
-                            $login = $_POST['login'];
-                            $senha = $_POST['senha'];
-                            $perfil = $_POST['perfil'];
-                            $cpf = $_POST['cpf'];
-                            $email = $_POST['email'];
-
                             $cep = $_POST['Cep'];
-                            $logra = $_POST['Logradouro'];
+                            $logradouro = $_POST['Logradouro'];
                             $comple = $_POST['Complemento'];
                             $bairro = $_POST['Bairro'];             
                             $cidade = $_POST['Cidade'];
                             $uf = $_POST['Uf'];
 
+                            $dtNasc = $_POST['dtNasc'];
+                            $login = $_POST['login'];
+                            $senha = $_POST['senha'];
+                            $perfil = $_POST['Perfil'];
+                            $email = $_POST['email'];
+                            $cpf = $_POST['cpf'];
+                            
+
                             $pessoa = new PessoaController();
                                 unset($_POST['cadastrarPessoa']);
-                                $msg = $pessoa->inserirPessoa($nome, $dtNasc,
-                                        $login, $senha, $perfil,  $email, $cpf, 
-                                        $cep, $logra, $comple, $bairro, $cidade, $uf);
+                                $msg = $pessoa->inserirPessoa($cep, $logradouro, $comple, $bairro, $cidade, $uf,
+                                        $nome, $dtNasc, $login, $senha, $perfil,  $email, $cpf
+                                        );
                                 echo $msg->getMsg();
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
                                     URL='cadastroPessoa.php'\">";
 
-                                echo "<script>
+                                /*echo "<script>
                                     Swal.fire({
                                         title: 'Dados Cadastrados!',
                                         text: 'Os dados foram PROCESSADOS com sucesso.',
                                         icon: 'sucess',
                                         confirmButtonText: 'Ok'
                                     })
-                                </script>";
+                                </script>";*/
                         }
                     }
 
@@ -135,21 +149,31 @@ $btExcluir = FALSE;
                         <form method="post" action="">
                             <div class="row">
                             <div class="col-md-6 ">  
-                            <label>Código: </label> <br>
+                            <strong>Código: <label style="color:red;">
+                                            <?php
+                                            if ($en != null) {
+                                                echo $en->getIdEndereco();
+                                                ?>
+                                            </label></strong>
+                                        <input type="hidden" name="idEndereco" 
+                                               value="<?php echo $en->getIdEndereco(); ?>"><br>
+                                               <?php
+                                           }
+                                           ?>
                                             <label>CEP</label><br>
-                                            <input class="form-control" type="text" name="Cep" id="cep">
+                                            <input class="form-control" type="text" name="Cep" id="cep" value="<?php echo $ps->getFkEndereco()->getCep(); ?>">
                                             <label>Logradouro/Rua</label>
-                                            <input class="form-control" type="text" name="Logradouro" id="rua">
+                                            <input class="form-control" type="text" name="Logradouro" id="rua" value="<?php echo $ps->getFkEndereco()->getLogradouro(); ?>">
                                             <label>Complemento</label>
-                                            <input class="form-control" type="text" name="Complemento" id="complemento">
+                                            <input class="form-control" type="text" name="Complemento" id="complemento" value="<?php echo $ps->getFkEndereco()->getComplemento(); ?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label>Bairro</label>
-                                            <input class="form-control" type="text" name="Bairro" id="bairro">
+                                            <input class="form-control" type="text" name="Bairro" id="bairro" value="<?php echo $ps->getFkEndereco()->getBairro(); ?>">
                                             <label>Cidade</label>
-                                            <input class="form-control" type="text" name="Cidade" id="cidade">
+                                            <input class="form-control" type="text" name="Cidade" id="cidade" value="<?php echo $ps->getFkEndereco()->getCidade(); ?>">
                                             <label>UF</label>
-                                            <input class="form-control" type="text" name="Uf" id="uf">
+                                            <input class="form-control" type="text" name="Uf" id="uf" value="<?php echo $ps->getFkEndereco()->getUf(); ?>">
                                         </div>
                                 
                             </div>
@@ -161,39 +185,49 @@ $btExcluir = FALSE;
                             </div>
                             <div class="col-12 ">
                                 <div class="card-header text-start text-dark border">
-                                    <label style="margin-top: 10px;">Código: </label><br>
+                                <strong>Código: <label style="color:red;">
+                                            <?php
+                                            if ($ps != null) {
+                                                echo $ps->getIdpessoa();
+                                                ?>
+                                            </label></strong>
+                                        <input type="hidden" name="idEndereco" 
+                                               value="<?php echo $ps->getIdpessoa(); ?>"><br>
+                                               <?php
+                                           }
+                                           ?>
                                     <div class="row">
                                     <div class="col-md-6">
                                     
                                     <label>Nome Completo</label>  
                                     <input class="form-control" type="text" 
-                                           name="nome" >
+                                           name="nome" value="<?php echo $ps->getNome(); ?>">
                                     <label>Data de Nascimento</label>  
                                     <input class="form-control" type="date" 
-                                           name="dtNasc" >  
+                                           name="dtNasc" value="<?php echo $ps->getDtNasc(); ?>">  
                                     <label>E-Mail</label>  
                                     <input class="form-control" type="email" 
-                                           name="email" > 
+                                           name="email" value="<?php echo $ps->getEmail(); ?>"> 
                                     <label>CPF</label>  
                                     <input class="form-control" type="text" 
-                                           name="cpf">
+                                           name="cpf" value="<?php echo $ps->getCpf(); ?>">
                                 </div>
                                 <div class="col-md-6">
                                     <br>
                                     <label>Login</label>  
                                     <input class="form-control" type="text" 
-                                           name="login" >  
+                                           name="login" value="<?php echo $ps->getLogin(); ?>" >  
                                     <label>Senha</label>  
                                     <input class="form-control" type="password" 
-                                           name="senha" > 
+                                           name="senha" value="<?php echo $ps->getSenha(); ?>"> 
                                     <label>Conf. Senha</label>  
                                     <input class="form-control" type="password" 
                                            name="senha2"> 
                                     <label>Perfil</label>  
-                                    <select name="perfil" class="form-control">
+                                    <select name="Perfil" class="form-control">
                                         <option>[--Selecione--]</option>
-                                        <option >Cliente</option>
-                                        <option >Funcionário</option>
+                                        <option value="<?php echo $ps->getPerfil(); ?>">Cliente</option>
+                                        <option value="<?php echo $ps->getPerfil(); ?>">Funcionário</option>
                                     </select>
                                 </div>
                                         

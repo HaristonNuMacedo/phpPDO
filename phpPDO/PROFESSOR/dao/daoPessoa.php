@@ -9,66 +9,72 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/endereco.php';
 class DaoPessoa
 {
 
-    public function inserirPessoaDAO(Pessoa $ps)
+    public function inserirPessoaDAO(Pessoa $pessoa)
     {
         $conn = new Conecta();
         $msg = new Mensagem();
         $conecta = $conn->conectadb();
         if ($conecta) {
-            $nome = $ps->getNome();
-            $dtNasc = $ps->getDtNasc();
-            $login = $ps->getLogin();
-            $senha = $ps->getSenha();
-            $perfil = $ps->getPerfil();
-            $email = $ps->getEmail();
-            $cpf = $ps->getCpf();
+            $cep = $pessoa->getFkEndereco()->getCep();
+            $logradouro = $pessoa->getFkEndereco()->getLogradouro();
+            $complemento = $pessoa->getFkEndereco()->getComplemento();
+            $bairro = $pessoa->getFkEndereco()->getBairro();
+            $cidade = $pessoa->getFkEndereco()->getCidade();
+            $uf = $pessoa->getFkEndereco()->getUf();
 
-            $cep = $ps->getFkEndereco()->getCep();
-            $logradouro = $ps->getFkEndereco()->getLogradouro();
-            $complemento = $ps->getFkEndereco()->getComplemento();
-            $bairro = $ps->getFkEndereco()->getBairro();
-            $cidade = $ps->getFkEndereco()->getCidade();
-            $uf = $ps->getFkEndereco()->getUf();
-
+            $nome = $pessoa->getNome();
+            $dtNasc = $pessoa->getDtNasc();
+            $login = $pessoa->getLogin();
+            $senha = $pessoa->getSenha();
+            $perfil = $pessoa->getPerfil();
+            $email = $pessoa->getEmail();
+            $cpf = $pessoa->getCpf();
 
             try {
                 //processo para pegar o idendereco da tabela endereco, conforme 
-                //o cep e o logradouro informado.
+                //o cep, o logradouro e o complemento informado.
                 $st = $conecta->prepare("select idEndereco "
                     . "from endereco where cep = ? and "
-                    . "logradouro = ? limit 1");
+                    . "logradouro = ? and complemento = ? limit 1");
                 $st->bindParam(1, $cep);
                 $st->bindParam(2, $logradouro);
-                $st->execute();
+                $st->bindParam(3, $complemento);
+
                 if ($st->execute()){
-                    while($lista = $st->fetch(PDO::FETCH_OBJ)) {
-                    $fkEnd = $lista->idEndereco;
-                    }
+                    if ($st->rowCount() > 0) {
+                        while($lista = $st->fetch(PDO::FETCH_OBJ)) {
+                            $fkEnd = $lista->idEndereco;
+                        }
+                    } 
                 } else {
                     $st2 = $conecta->prepare("insert into "
-                        . "endereco values (null,?,?,?,?,?,?)");
-                    $st2->bindParam(1, $logradouro);
-                    $st2->bindParam(2, $complemento);
-                    $st2->bindParam(3, $bairro);
-                    $st2->bindParam(4, $cidade);
-                    $st2->bindParam(5, $uf);
-                    $st2->bindParam(6, $cep);
+                        . "endereco values (null, ?, ?, ?, ?, ?, ?)");
+                    $st2->bindParam(1, $cep);
+                    $st2->bindParam(2, $logradouro);
+                    $st2->bindParam(3, $complemento);
+                    $st2->bindParam(4, $bairro);
+                    $st2->bindParam(5, $cidade);
+                    $st2->bindParam(6, $uf);
+                    
                     $st2->execute();
 
-                    $st3 = $conecta->prepare("select idendereco "
+                    $st3 = $conecta->prepare("select idEndereco "
                         . "from endereco where cep = ? and "
-                        . "logradouro = ? limit 1");
+                        . "logradouro = ? and complemento = ? limit 1");
                     $st3->bindParam(1, $cep);
                     $st3->bindParam(2, $logradouro);
+                    $st3->bindParam(3, $complemento);
                     $st3->execute();
                     if ($st3->execute()){
-                        while($lista = $st->fetch(PDO::FETCH_OBJ)) {
-                        $fkEnd = $lista->idEndereco;
-                        }
+                        if ($st3->rowCount() > 0) {
+                            while($linha = $st3->fetch(PDO::FETCH_OBJ)) {
+                                $fkEnd = $linha->idEndereco;
+                            }
+                        }  
                     }
                 }
 
-                $stmt = $conecta->prepare("insert into pessoa values (null, ?, ?, ?, ?, ?, ?, ?, ?); ");
+                $stmt = $conecta->prepare("insert into pessoa values (null, ?, ?, ?, ?, ?, ?, ?, ?)");
 
                 $stmt->bindParam(1, $nome);
                 $stmt->bindParam(2, $dtNasc);
@@ -163,10 +169,8 @@ class DaoPessoa
             cidade - varchar
             uf - varchar(2)
 
-            START TRANSACTION; 
-                insert into endereco values (null, '71258385', 'kdsj02', 'naosei', 'teste', 'casadojõas', 'df'); 
-                insert into pessoa values (null, 'teste', '02-01-2001', 'tyest', 'logado12', 'umNada','Kabulozo005@gmail.com', '06845503184', '1'); 
-            COMMIT;
+            5.
+
         */
     }
 }
