@@ -5,9 +5,10 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/endereco.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
 
 $msg = new Mensagem();
+$pess = new Pessoa();
+
 $en = new Endereco();
-$ps = new Pessoa();
-$ps->setFkEndereco($en);
+$pess->setFkEndereco($en);
 
 $btEnviar = FALSE;
 $btAtualizar = FALSE;
@@ -194,8 +195,8 @@ $btExcluir = FALSE;
                         $btAtualizar = TRUE;
                         $btExcluir = TRUE;
                         $id = $_GET['id'];
-                        $pessoa = new PessoaController();
-                        $pes = $pessoa->pesquisarPessoaId($id);
+                        $p = new PessoaController();
+                        $pess = $p->pesquisarPessoaId($id);
                     }
                 }
 
@@ -207,29 +208,29 @@ $btExcluir = FALSE;
                             <div class="col-md-6 ">  
                                 <strong>Código: <label style="color:red;">
                                             <?php
-                                            if ($ps != null) {
-                                                echo $ps->getFkEndereco()->getIdEndereco();
+                                            if ($pess != null) {
+                                                echo $pess->getIdpessoa();
                                                 ?>
                                             </label></strong>
-                                        <input type="hidden" name="idfornecedor" 
-                                               value="<?php echo $ps->getFkEndereco()->getIdEndereco(); ?>"><br>
+                                        <input type="hidden" name="idPessoa" 
+                                               value="<?php echo $pess->getIdpessoa(); ?>"><br>
                                                <?php
                                            }
-                                           ?>     
+                                           ?>
                                         <label>CEP</label><br>
-                                            <input class="form-control" type="text" name="Cep" id="cep" value="<?php echo $ps->getFkEndereco()->getCep(); ?>">
+                                            <input class="form-control" type="text" name="Cep" id="cep" onkeypress="mascara(this, '#####-###')" maxlength="9" value="<?php echo $pess->getFkEndereco()->getCep(); ?>">
                                             <label>Logradouro/Rua</label>
-                                            <input class="form-control" type="text" name="Logradouro" id="rua" value="<?php echo $ps->getFkEndereco()->getLogradouro(); ?>">
+                                            <input class="form-control" type="text" name="Logradouro" id="rua" value="<?php echo $pess->getFkEndereco()->getLogradouro(); ?>">
                                             <label>Complemento</label>
-                                            <input class="form-control" type="text" name="Complemento" id="complemento" value="<?php echo $ps->getFkEndereco()->getComplemento(); ?>">
+                                            <input class="form-control" type="text" name="Complemento" id="complemento" value="<?php echo $pess->getFkEndereco()->getComplemento(); ?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label>Bairro</label>
-                                            <input class="form-control" type="text" name="Bairro" id="bairro" value="<?php echo $ps->getFkEndereco()->getBairro(); ?>">
+                                            <input class="form-control" type="text" name="Bairro" id="bairro" value="<?php echo $pess->getFkEndereco()->getBairro(); ?>">
                                             <label>Cidade</label>
-                                            <input class="form-control" type="text" name="Cidade" id="cidade" value="<?php echo $ps->getFkEndereco()->getCidade(); ?>">
+                                            <input class="form-control" type="text" name="Cidade" id="cidade" value="<?php echo $pess->getFkEndereco()->getCidade(); ?>">
                                             <label>UF</label>
-                                            <input class="form-control" type="text" name="Uf" id="uf" value="<?php echo $ps->getFkEndereco()->getUf(); ?>">
+                                            <input class="form-control" type="text" name="Uf" id="uf" value="<?php echo $pess->getFkEndereco()->getUf(); ?>">
                                         </div>
                                 
                             </div>
@@ -241,51 +242,40 @@ $btExcluir = FALSE;
                             </div>
                             <div class="col-12 ">
                                 <div class="card-header text-start text-dark border">
-                                <strong>Código: <label style="color:red;">
-                                            <?php
-                                            if ($ps != null) {
-                                                echo $ps->getIdpessoa();
-                                                ?>
-                                            </label></strong>
-                                        <input type="hidden" name="idPessoa" 
-                                               value="<?php echo $ps->getIdpessoa(); ?>"><br>
-                                               <?php
-                                           }
-                                           ?>
+                                
                                     <div class="row">
                                     <div class="col-md-6">
                                     
                                     <label>Nome Completo</label>  
                                     <input class="form-control" type="text" 
-                                           name="nome" value="<?php echo $ps->getNome(); ?>">
+                                           name="nome" value="<?php echo $pess->getNome(); ?>">
                                     <label>Data de Nascimento</label>  
                                     <input class="form-control" type="date" 
-                                           name="dtNasc" value="<?php echo $ps->getDtNasc(); ?>">  
+                                           name="dtNasc" value="<?php echo $pess->getDtNasc(); ?>">  
                                     <label>E-Mail</label>  
                                     <input class="form-control" type="email" 
-                                           name="email" value="<?php echo $ps->getEmail(); ?>"> 
+                                           name="email" value="<?php echo $pess->getEmail(); ?>"> 
                                     <label>CPF</label>  
                                     <input class="form-control" type="text" 
-                                           name="cpf" value="<?php echo $ps->getCpf(); ?>">
+                                           name="cpf" value="<?php echo $pess->getCpf(); ?>">
                                 </div>
                                 <div class="col-md-6">
-                                    <br>
                                     <label>Login</label>  
                                     <input class="form-control" type="text" 
-                                           name="login" value="<?php echo $ps->getLogin(); ?>" >  
+                                           name="login" value="<?php echo $pess->getLogin(); ?>" >  
                                     <label>Senha</label>  
                                     <input class="form-control" type="password" 
-                                           name="senha" value="<?php echo $ps->getSenha(); ?>"> 
+                                           name="senha" value="<?php echo $pess->getSenha(); ?>"> 
                                     <label>Conf. Senha</label>  
                                     <input class="form-control" type="password" 
                                            name="senha2"> 
                                     <label>Perfil</label>  
                                     <select name="Perfil" class="form-control">
                                         <option>[--Selecione--]</option>
-                                        <option value="<?php echo $ps->getPerfil(); ?>">Cliente</option>
-                                        <option value="<?php echo $ps->getPerfil(); ?>">Funcionário</option>
+                                        <option value="<?php echo $pess->getPerfil(); ?>">Cliente</option>
+                                        <option value="<?php echo $pess->getPerfil(); ?>">Funcionário</option>
                                     </select>
-                                </div>
+                                </div><br>
                                         
                                     </div>
                                 </div>
@@ -329,19 +319,19 @@ $btExcluir = FALSE;
                                 $listaP = $fcTable->listarPessoas();
                                 $a = 0;
                                 if ($listaP != null) {
-                                    foreach ($listaP as $lf) {
+                                    foreach ($listaP as $psa) {
                                         $a++;
                                         ?>
                                         <tr>
-                                            <td><?php print_r($lf->getIdpessoa()); ?></td>
-                                            <td><?php print_r($lf->getNome()); ?></td>
-                                            <td><?php print_r($lf->getDtNasc()); ?></td>
-                                            <td><?php print_r($lf->getPerfil()); ?></td>
-                                            <td><?php print_r($lf->getEmail()); ?></td>
-                                            <td><?php print_r($lf->getCpf()); ?></td>
-                                            <td><?php print_r($lf->getFkEndereco()->getUf()); ?></td>
-                                            <td><?php print_r($lf->getFkEndereco()->getCep()); ?></td>
-                                            <td><a href="cadastroPessoa.php?id=<?php echo $lf->getIdpessoa(); ?>"
+                                            <td><?php print_r($psa->getIdpessoa()); ?></td>
+                                            <td><?php print_r($psa->getNome()); ?></td>
+                                            <td><?php print_r($psa->getDtNasc()); ?></td>
+                                            <td><?php print_r($psa->getPerfil()); ?></td>
+                                            <td><?php print_r($psa->getEmail()); ?></td>
+                                            <td><?php print_r($psa->getCpf()); ?></td>
+                                            <td><?php print_r($psa->getFkEndereco()->getUf()); ?></td>
+                                            <td><?php print_r($psa->getFkEndereco()->getCep()); ?></td>
+                                            <td><a href="../view/cadastroPessoa.php?id=<?php echo $psa->getIdpessoa(); ?>"
                                                    class="btn btn-light">
                                                     <img src="../img/edita.png" width="24"></a>
                                                 </form>
@@ -362,9 +352,9 @@ $btExcluir = FALSE;
                                                 <div class="modal-body">
                                                     <form method="post" action="">
                                                         <label><strong>Deseja excluir o fornecedor 
-                                                                <?php echo $lf->getNome(); ?>?</strong></label>
+                                                                <?php echo $psa->getNome(); ?>?</strong></label>
                                                         <input type="hidden" name="ide" 
-                                                               value="<?php echo $lf->getIdpessoa(); ?>">
+                                                               value="<?php echo $psa->getIdpessoa(); ?>">
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="submit" name="excluir" class="btn btn-primary">Sim</button>

@@ -64,8 +64,8 @@ class PessoaController {
     }
 
     public function pesquisarPessoaId($id){
-        $daoP = new DaoPessoa();
-        return $daoP->pesquisarPessoaIdDAO($id);
+        $daoPs = new DaoPessoa();
+        return $daoPs->pesquisarPessoaIdDAO($id);
     }
 
 }

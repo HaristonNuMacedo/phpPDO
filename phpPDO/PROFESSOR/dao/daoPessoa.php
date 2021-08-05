@@ -266,17 +266,8 @@ class DaoPessoa
                         if ($rs->rowCount() > 0) {
                             while ($linha = $rs->fetch(PDO::FETCH_OBJ)) {
     
-                                $endereco = new Endereco();
-                                $endereco->setCep($linha->idEndereco);
-                                $endereco->setCep($linha->cep);
-                                $endereco->setLogradouro($linha->logradouro);
-                                $endereco->setComplemento($linha->complemento);
-                                $endereco->setBairro($linha->bairro);
-                                $endereco->setCidade($linha->cidade);
-                                $endereco->setUf($linha->uf);
-    
                                 $pessoa = new Pessoa();
-                                $pessoa->setIdpessoa($linha->idPessoa);
+                                $pessoa->setIdPessoa($linha->idPessoa);
                                 $pessoa->setNome($linha->nome);
                                 $pessoa->setDtNasc($linha->dtNasc);
                                 $pessoa->setLogin($linha->login);
@@ -285,7 +276,16 @@ class DaoPessoa
                                 $pessoa->setEmail($linha->email);
                                 $pessoa->setCpf($linha->cpf);
 
-                                $pessoa->setFkEndereco($endereco);
+                                $end = new Endereco();
+                                $end->setIdEndereco($linha->idEndereco);
+                                $end->setCep($linha->cep);
+                                $end->setLogradouro($linha->logradouro);
+                                $end->setComplemento($linha->complemento);
+                                $end->setBairro($linha->bairro);
+                                $end->setCidade($linha->cidade);
+                                $end->setUf($linha->uf);
+
+                                $pessoa->setFkEndereco($end);
                             }
                         }
                     }
