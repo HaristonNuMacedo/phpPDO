@@ -36,4 +36,36 @@ class PessoaController {
         return $daoP->listarPessoasDAO();
     }
 
+    public function atualizarPessoa($cep, $logradouro, $comple, $bair, $cida, $uf, 
+        $idPs, $nome, $nasc, $lo, $se, $per, $email, $cpf){
+        
+        $pessoa = new Pessoa();
+        $pessoa->setIdpessoa($idPs);
+        $pessoa->setNome($nome);
+        $pessoa->setDtNasc($nasc);
+        $pessoa->setLogin($lo);
+        $pessoa->setSenha($se);
+        $pessoa->setPerfil($per);
+        $pessoa->setEmail($email);
+        $pessoa->setCpf($cpf);
+
+        $end = new Endereco();
+        $end->setCep($cep);
+        $end->setLogradouro($logradouro);
+        $end->setComplemento($comple);
+        $end->setBairro($bair);
+        $end->setCidade($cida);
+        $end->setUf($uf);
+
+        $pessoa->setFkEndereco($end);
+
+        $daoP = new DaoPessoa();
+        return $daoP->atualizarFornecedorDAO($pessoa);
+    }
+
+    public function pesquisarPessoaId($id){
+        $daoP = new DaoPessoa();
+        return $daoP->pesquisarPessoaIdDAO($id);
+    }
+
 }

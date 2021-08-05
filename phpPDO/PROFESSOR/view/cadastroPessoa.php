@@ -108,6 +108,7 @@ $btExcluir = FALSE;
                     if (isset($_POST['cadastrarPessoa'])) {
                         $nome = trim($_POST['nome']);
                         if ($nome != "") {
+                            $idPs = $_POST['idPessoa'];
                             $cep = $_POST['Cep'];
                             $logradouro = $_POST['Logradouro'];
                             $comple = $_POST['Complemento'];
@@ -132,16 +133,71 @@ $btExcluir = FALSE;
                                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
                                     URL='cadastroPessoa.php'\">";
 
-                                /*echo "<script>
+                                echo "<script>
                                     Swal.fire({
                                         title: 'Dados Cadastrados!',
                                         text: 'Os dados foram PROCESSADOS com sucesso.',
                                         icon: 'sucess',
                                         confirmButtonText: 'Ok'
                                     })
-                                </script>";*/
+                                </script>";
+                        }
+
+                         //envio dos dados para o BD
+                    if (isset($_POST['atualizarPessoa'])) {
+                        $nome = trim($_POST['nome']);
+                        if ($nome != "") {
+                            $idPs = $_POST['idPessoa'];
+                            $cep = $_POST['Cep'];
+                            $logradouro = $_POST['Logradouro'];
+                            $comple = $_POST['Complemento'];
+                            $bairro = $_POST['Bairro'];             
+                            $cidade = $_POST['Cidade'];
+                            $uf = $_POST['Uf'];
+
+                            $dtNasc = $_POST['dtNasc'];
+                            $login = $_POST['login'];
+                            $senha = $_POST['senha'];
+                            $perfil = $_POST['Perfil'];
+                            $email = $_POST['email'];
+                            $cpf = $_POST['cpf'];
+                            
+
+                            $pessoa = new PessoaController();
+                                unset($_POST['cadastrarPessoa']);
+                                $msg = $pessoa->atualizarPessoa($cep, $logradouro, $comple, $bairro, $cidade, $uf,
+                                    $idPs, $nome, $dtNasc, $login, $senha, $perfil,  $email, $cpf
+                                );
+                                echo $msg->getMsg();
+                                echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
+                                    URL='cadastroPessoa.php'\">";
+
+                                echo "<script>
+                                    Swal.fire({
+                                        title: 'Dados Atualizados!',
+                                        text: 'Os dados foram REPROCESSADOS com sucesso.',
+                                        icon: 'sucess',
+                                        confirmButtonText: 'Ok'
+                                    })
+                                </script>";
                         }
                     }
+
+                    if (isset($_POST['limpar'])) {
+                        $fr = null;
+                        unset($_GET['id']);
+                        header("Location: cadastroPessoa.php");
+                    }
+
+                    if (isset($_GET['id'])) {
+                        $btEnviar = TRUE;
+                        $btAtualizar = TRUE;
+                        $btExcluir = TRUE;
+                        $id = $_GET['id'];
+                        $fc = new PessoaController();
+                        $fr = $fc->pesquisarPessoaId($id);
+                    }
+                }
 
 
                     ?>
@@ -191,7 +247,7 @@ $btExcluir = FALSE;
                                                 echo $ps->getIdpessoa();
                                                 ?>
                                             </label></strong>
-                                        <input type="hidden" name="idEndereco" 
+                                        <input type="hidden" name="idPessoa" 
                                                value="<?php echo $ps->getIdpessoa(); ?>"><br>
                                                <?php
                                            }
@@ -239,6 +295,10 @@ $btExcluir = FALSE;
                                 <input type="submit" name="cadastrarPessoa"
                                        class="btn btn-success btInput" value="Enviar">
                                 &nbsp;&nbsp;
+                                <input type="submit" name="atualizarPessoa"
+                                           class="btn btn-secondary btInput" value="Atualizar"
+                                           <?php if($btAtualizar == FALSE) echo "disabled"; ?>>
+                                &nbsp;&nbsp;
                                 <input type="reset" 
                                        class="btn btn-light btInput" value="Limpar">
                             </div>
@@ -258,7 +318,7 @@ $btExcluir = FALSE;
                                     <th>data de Nasc.</th>
                                     <th>Perfil</th>
                                     <th>E-mail</th>
-                                    <th>cpf</th>
+                                    <th>CPF</th>
                                     <th>UF</th>
                                     <th>CEP</th>
                                     <th colspan="2">Ações</th></tr>
@@ -281,7 +341,7 @@ $btExcluir = FALSE;
                                             <td><?php print_r($lf->getCpf()); ?></td>
                                             <td><?php print_r($lf->getFkEndereco()->getUf()); ?></td>
                                             <td><?php print_r($lf->getFkEndereco()->getCep()); ?></td>
-                                            <td><a href="cadastroFornecedor.php?id=<?php echo $lf->getIdpessoa(); ?>"
+                                            <td><a href="cadastroPessoa.php?id=<?php echo $lf->getIdpessoa(); ?>"
                                                    class="btn btn-light">
                                                     <img src="../img/edita.png" width="24"></a>
                                                 </form>
