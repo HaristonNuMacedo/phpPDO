@@ -194,8 +194,8 @@ $btExcluir = FALSE;
                         $btAtualizar = TRUE;
                         $btExcluir = TRUE;
                         $id = $_GET['id'];
-                        $fc = new PessoaController();
-                        $fr = $fc->pesquisarPessoaId($id);
+                        $pessoa = new PessoaController();
+                        $pes = $pessoa->pesquisarPessoaId($id);
                     }
                 }
 
@@ -205,18 +205,18 @@ $btExcluir = FALSE;
                         <form method="post" action="">
                             <div class="row">
                             <div class="col-md-6 ">  
-                            <strong>Código: <label style="color:red;">
+                                <strong>Código: <label style="color:red;">
                                             <?php
-                                            if ($en != null) {
-                                                echo $en->getIdEndereco();
+                                            if ($ps != null) {
+                                                echo $ps->getFkEndereco()->getIdEndereco();
                                                 ?>
                                             </label></strong>
-                                        <input type="hidden" name="idEndereco" 
-                                               value="<?php echo $en->getIdEndereco(); ?>"><br>
+                                        <input type="hidden" name="idfornecedor" 
+                                               value="<?php echo $ps->getFkEndereco()->getIdEndereco(); ?>"><br>
                                                <?php
                                            }
-                                           ?>
-                                            <label>CEP</label><br>
+                                           ?>     
+                                        <label>CEP</label><br>
                                             <input class="form-control" type="text" name="Cep" id="cep" value="<?php echo $ps->getFkEndereco()->getCep(); ?>">
                                             <label>Logradouro/Rua</label>
                                             <input class="form-control" type="text" name="Logradouro" id="rua" value="<?php echo $ps->getFkEndereco()->getLogradouro(); ?>">

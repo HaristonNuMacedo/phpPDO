@@ -259,14 +259,15 @@ class DaoPessoa
             if ($conecta) { 
                 try {
                     $rs = $conecta->prepare("select * from pessoa inner join endereco "
-                        . " on pessoa.fkEndereco = endereco.idEndereco where "
-                        . "idPessoa = ? limit 1");
+                        . " on pessoa.fkEndereco = endereco.idEndereco "
+                        . " where pessoa.idPessoa = ? limit 1");
                     $rs->bindParam(1, $id);
                     if ($rs->execute()) {
                         if ($rs->rowCount() > 0) {
                             while ($linha = $rs->fetch(PDO::FETCH_OBJ)) {
     
                                 $endereco = new Endereco();
+                                $endereco->setCep($linha->idEndereco);
                                 $endereco->setCep($linha->cep);
                                 $endereco->setLogradouro($linha->logradouro);
                                 $endereco->setComplemento($linha->complemento);
@@ -283,6 +284,7 @@ class DaoPessoa
                                 $pessoa->setPerfil($linha->perfil);
                                 $pessoa->setEmail($linha->email);
                                 $pessoa->setCpf($linha->cpf);
+
                                 $pessoa->setFkEndereco($endereco);
                             }
                         }
