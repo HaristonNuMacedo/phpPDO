@@ -236,8 +236,8 @@ $btExcluir = FALSE;
                         $fr = null;
                         unset($_GET['id']);
                         header("Location: cadastroPessoa.php");
-                        echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
-                                    URL='cadastroPessoa.php'\">";
+                        echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"1;
+                                    URL='http://localhost/phpPDO/phpPDO/PROFESSOR/view/cadastroPessoa.php'\">";
                     }
 
                     if (isset($_GET['id'])) {
@@ -375,7 +375,7 @@ $btExcluir = FALSE;
                                 <!-- fim do modal para excluir -->
                                 &nbsp;&nbsp;
                                 <input type="reset" 
-                                       class="btn btn-light btInput" value="Limpar">
+                                       class="btn btn-light btInput" name="limpar" value="Limpar">
                             </div>
                         </form>
                     </div>
