@@ -194,17 +194,17 @@ $btExcluir = FALSE;
                             unset($_POST['excluir']);
                             $msg = $ps->excluirPessoa($id);
                             echo $msg->getMsg();
-                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
+                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
                                     URL='cadastroPessoa.php'\">";
 
-                            echo "<script>
+                            /*echo "<script>
                                     Swal.fire({
                                         title: 'Dados Excluídos!',
                                         text: 'Os dados foram DELETADOS com sucesso.',
                                         icon: 'sucess',
                                         confirmButtonText: 'Ok'
                                     })
-                                </script>";
+                                </script>";*/
                         }
                     }
 
@@ -217,17 +217,17 @@ $btExcluir = FALSE;
                             $msg = $ps->excluirPessoa($id);
 
                             echo $msg->getMsg();
-                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
+                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
                                     URL='cadastroPessoa.php'\">";
 
-                            echo "<script>
+                            /*echo "<script>
                                     Swal.fire({
                                         title: 'Dados Excluídos!',
                                         text: 'Os dados foram DELETADOS com sucesso.',
                                         icon: 'sucess',
                                         confirmButtonText: 'Ok'
                                     })
-                                </script>";
+                                </script>";*/
                         }
                     }
 
