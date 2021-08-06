@@ -137,17 +137,19 @@ $btExcluir = FALSE;
                                 echo "<script>
                                     Swal.fire({
                                         title: 'Dados Cadastrados!',
-                                        text: 'Os dados foram PROCESSADOS com sucesso.',
+                                        text: 'Os dados foram INSERIDOS com sucesso.',
                                         icon: 'sucess',
                                         confirmButtonText: 'Ok'
                                     })
                                 </script>";
                         }
+                    }
 
                          //envio dos dados para o BD
                     if (isset($_POST['atualizarPessoa'])) {
                         $nome = trim($_POST['nome']);
-                        if ($nome != "") {
+                        $perfil = trim($_POST['Perfil']);
+                        if ($nome != "" and $perfil != "") {
                             $idPs = $_POST['idPessoa'];
                             $cep = $_POST['Cep'];
                             $logradouro = $_POST['Logradouro'];
@@ -159,7 +161,7 @@ $btExcluir = FALSE;
                             $dtNasc = $_POST['dtNasc'];
                             $login = $_POST['login'];
                             $senha = $_POST['senha'];
-                            $perfil = $_POST['Perfil'];
+                            
                             $email = $_POST['email'];
                             $cpf = $_POST['cpf'];
                             
@@ -176,7 +178,7 @@ $btExcluir = FALSE;
                                 echo "<script>
                                     Swal.fire({
                                         title: 'Dados Atualizados!',
-                                        text: 'Os dados foram REPROCESSADOS com sucesso.',
+                                        text: 'Os dados foram EDITADOS com sucesso.',
                                         icon: 'sucess',
                                         confirmButtonText: 'Ok'
                                     })
@@ -184,10 +186,58 @@ $btExcluir = FALSE;
                         }
                     }
 
+                    if (isset($_POST['excluir'])) {
+                        if ($pess != null) {
+                            $id = $_POST['ide'];
+
+                            $ps = new PessoaController();
+                            unset($_POST['excluir']);
+                            $msg = $ps->excluirPessoa($id);
+                            echo $msg->getMsg();
+                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
+                                    URL='cadastroPessoa.php'\">";
+
+                            echo "<script>
+                                    Swal.fire({
+                                        title: 'Dados Excluídos!',
+                                        text: 'Os dados foram DELETADOS com sucesso.',
+                                        icon: 'sucess',
+                                        confirmButtonText: 'Ok'
+                                    })
+                                </script>";
+                        }
+                    }
+
+                    if (isset($_POST['excluirPessoa'])) {
+                        if ($pess != null) {
+                            $id = $_POST['idPessoa'];
+
+                            unset($_POST['excluirPessoa']);
+                            $ps = new PessoaController();
+                            $msg = $ps->excluirPessoa($id);
+
+                            echo $msg->getMsg();
+                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"3;
+                                    URL='cadastroPessoa.php'\">";
+
+                            echo "<script>
+                                    Swal.fire({
+                                        title: 'Dados Excluídos!',
+                                        text: 'Os dados foram DELETADOS com sucesso.',
+                                        icon: 'sucess',
+                                        confirmButtonText: 'Ok'
+                                    })
+                                </script>";
+                        }
+                    }
+
+
                     if (isset($_POST['limpar'])) {
                         $fr = null;
                         unset($_GET['id']);
                         header("Location: cadastroPessoa.php");
+                        echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
+                                    URL='cadastroPessoa.php'\">";
                     }
 
                     if (isset($_GET['id'])) {
@@ -198,9 +248,7 @@ $btExcluir = FALSE;
                         $p = new PessoaController();
                         $pess = $p->pesquisarPessoaId($id);
                     }
-                }
-
-
+                
                     ?>
                     <div class="card-body" style="border: 2px solid #252525;">
                         <form method="post" action="">
@@ -272,8 +320,20 @@ $btExcluir = FALSE;
                                     <label>Perfil</label>  
                                     <select name="Perfil" class="form-control">
                                         <option>[--Selecione--]</option>
-                                        <option value="<?php echo $pess->getPerfil(); ?>">Cliente</option>
-                                        <option value="<?php echo $pess->getPerfil(); ?>">Funcionário</option>
+                                        <option name="Perfil" 
+                                        <?php
+                                            if ($pess->getPerfil() === "Cliente") {
+                                                echo "selected = 'selected'";
+                                            }
+                                        ?> 
+                                        >Cliente</option>
+                                        <option name="Perfil" 
+                                        <?php
+                                            if ($pess->getPerfil() === "Funcionário") {
+                                                echo "selected = 'selected'";
+                                            }
+                                        ?>
+                                        >Funcionário</option>
                                     </select>
                                 </div><br>
                                         
@@ -288,6 +348,31 @@ $btExcluir = FALSE;
                                 <input type="submit" name="atualizarPessoa"
                                            class="btn btn-secondary btInput" value="Atualizar"
                                            <?php if($btAtualizar == FALSE) echo "disabled"; ?>>
+                                &nbsp;&nbsp;
+                                <button type="button" class="btn btn-warning btInput" data-bs-toggle="modal" data-bs-target="#ModalExcluir" <?php if ($btExcluir == FALSE) echo "disabled"; ?>>
+                                    Excluir
+                                </button>
+                                <!-- Modal para excluir -->
+                                <div class="modal fade" id="ModalExcluir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                    Confirmar Exclusão</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h5>Deseja Excluir?</h5>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" name="excluirPessoa" class="btn btn-success " value="Sim">
+                                                <input type="submit" class="btn btn-light btInput" name="limpar" value="Não">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- fim do modal para excluir -->
                                 &nbsp;&nbsp;
                                 <input type="reset" 
                                        class="btn btn-light btInput" value="Limpar">

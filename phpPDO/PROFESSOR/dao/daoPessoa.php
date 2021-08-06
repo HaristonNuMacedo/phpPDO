@@ -224,7 +224,7 @@ class DaoPessoa
                     }
                     $stmt = $conecta->prepare("update pessoa set "
                         . "nome = ?, dtNasc = ?, login = ?, senha = ?, "
-                        . "perfil = ?, email = ?, cpf = ?, fkEndreco = ? "
+                        . "perfil = ?, email = ?, cpf = ?, fkEndereco = ? "
                         . "where idPessoa = ?");
 
                     $stmt->bindParam(1, $nome);
@@ -256,6 +256,8 @@ class DaoPessoa
             $conn = new Conecta();
             $conecta = $conn->conectadb();
             $msg = new Mensagem();
+            $pessoa = new Pessoa();
+            $end = new Endereco();
             if ($conecta) { 
                 try {
                     $rs = $conecta->prepare("select * from pessoa inner join endereco "
@@ -266,7 +268,6 @@ class DaoPessoa
                         if ($rs->rowCount() > 0) {
                             while ($linha = $rs->fetch(PDO::FETCH_OBJ)) {
     
-                                $pessoa = new Pessoa();
                                 $pessoa->setIdPessoa($linha->idPessoa);
                                 $pessoa->setNome($linha->nome);
                                 $pessoa->setDtNasc($linha->dtNasc);
@@ -276,7 +277,6 @@ class DaoPessoa
                                 $pessoa->setEmail($linha->email);
                                 $pessoa->setCpf($linha->cpf);
 
-                                $end = new Endereco();
                                 $end->setIdEndereco($linha->idEndereco);
                                 $end->setCep($linha->cep);
                                 $end->setLogradouro($linha->logradouro);
@@ -299,6 +299,30 @@ class DaoPessoa
                 URL='http://localhost/phpPDO/phpPDO/PROFESSOR/view/cadastroPessoa.php\">";
         }
             return $pessoa;
+        }
+
+
+        public function excluirPessoaDAO($id){
+            $conn = new Conecta();
+            $conecta = $conn->conectadb();
+            $msg = new Mensagem();
+            if($conecta){
+                try {
+                    $stmt = $conecta->prepare("delete from pessoa "
+                            . "where idPessoa = ?");
+                    $stmt->bindParam(1, $id);
+                    $stmt->execute();
+                    $msg->setMsg("<p style='color: #d6bc71;'>"
+                            . "Dados excluídos com sucesso.</p>");
+                } catch (Exception $ex) {
+                    $msg->setMsg($ex);
+                }
+            }else{
+                $msg->setMsg("<p style='color: red;'>'Banco inoperante!'</p>"); 
+            }
+            $conn = null;
+            return $msg;
+    
         }
                 
 }

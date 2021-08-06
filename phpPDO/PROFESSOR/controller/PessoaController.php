@@ -68,4 +68,9 @@ class PessoaController {
         return $daoPs->pesquisarPessoaIdDAO($id);
     }
 
+    public function excluirPessoa($id){
+        $daoP = new DaoPessoa();
+        return $daoP->excluirPessoaDAO($id);
+    }
+
 }
