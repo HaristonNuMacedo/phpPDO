@@ -94,7 +94,7 @@
 
                 <!-- item-->
                 <div class="SairDiv">
-                  <a href="index.html" class="SairLogin">
+                  <a href="./login.php" class="SairLogin">
                     <i class="mdi mdi-lock-outline me-1"></i> 
                     <span>Logout...&#8608;</span>
                   </a>

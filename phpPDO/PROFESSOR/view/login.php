@@ -32,7 +32,7 @@
             $check = $dp->procurarsenha($login, $senha);
             if ($check == 1){
                 
-                header("Location: UserPage.html");
+                header("Location: EscolherCadastro.php");
                 
             }else{
                 echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
