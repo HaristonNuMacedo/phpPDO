@@ -324,6 +324,38 @@ class DaoPessoa
             return $msg;
     
         }
-                
+           
+        public function procurarsenha($login, $senha)
+    {
+        $pessoa = new Pessoa();
+        $conn = new Conecta();
+        $conecta = $conn->conectadb();
+        $check = null;
+        echo $senha;
+        if ($conecta) {
+            try {
+                $st = $conecta->prepare("select idPessoa from pessoa where " . "login = ? and senha = ? ");
+                $st->bindParam(1, $login);
+                $st->bindParam(2, $senha);
+                if ($st->execute()) {
+
+                    if ($st->rowCount() > 0) {
+                        echo $st->rowCount();
+                        $check =  true;
+                    } else {
+                        $check =  false;
+                    }
+                }
+            } catch (Exception $ex) {
+                echo $ex;
+            }
+            return $check;
+            $conn = null;
+        } else {
+
+
+            echo "Sem conexão com o banco";
+        }
+    }
 }
 

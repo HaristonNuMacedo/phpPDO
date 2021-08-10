@@ -73,4 +73,8 @@ class PessoaController {
         return $daoP->excluirPessoaDAO($id);
     }
 
+    /*public function validarLogin($login, $senha){
+        $daoP = new DaoPessoa();
+        return $daoP->validarLoginDAO($login, $senha);
+    }*/
 }

@@ -197,14 +197,14 @@ $btExcluir = FALSE;
                             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
                                     URL='cadastroPessoa.php'\">";
 
-                            /*echo "<script>
+                            echo "<script>
                                     Swal.fire({
                                         title: 'Dados Excluídos!',
                                         text: 'Os dados foram DELETADOS com sucesso.',
                                         icon: 'sucess',
                                         confirmButtonText: 'Ok'
                                     })
-                                </script>";*/
+                                </script>";
                         }
                     }
 
@@ -213,21 +213,21 @@ $btExcluir = FALSE;
                             $id = $_POST['idPessoa'];
 
                             unset($_POST['excluirPessoa']);
-                            $ps = new PessoaController();
-                            $msg = $ps->excluirPessoa($id);
+                            $pe = new PessoaController();
+                            $msg = $pe->excluirPessoa($id);
 
                             echo $msg->getMsg();
                             echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
                                     URL='cadastroPessoa.php'\">";
 
-                            /*echo "<script>
+                            echo "<script>
                                     Swal.fire({
                                         title: 'Dados Excluídos!',
                                         text: 'Os dados foram DELETADOS com sucesso.',
                                         icon: 'sucess',
                                         confirmButtonText: 'Ok'
                                     })
-                                </script>";*/
+                                </script>";
                         }
                     }
 

@@ -1,0 +1,377 @@
+
+@media screen and (max-width: 3900px){
+
+    .season3 {
+        width: 70%;
+        left: 550px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 20%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 580px;
+    }
+
+} 
+
+
+@media screen and (max-width: 2600px){
+
+    .season3 {
+        width: 83%;
+        left: 250px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 22%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 325px;
+    }
+
+} 
+
+@media screen and (max-width: 1925px){
+
+    .season3 {
+        width: 83%;
+        left: 160px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 28%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 140px;
+    }
+    
+}
+
+@media screen and (max-width: 1610px){
+
+    .season3 {
+        width: 83%;
+        left: 160px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 28%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 115px;
+    }
+    
+}
+
+@media screen and (max-width: 1370px){
+
+    .season3 {
+        width: 83%;
+        left: 115px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 28%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 90px;
+    }
+    
+}
+
+@media screen and (max-width: 1200px){
+
+    .season3 {
+        width: 90%;
+        left: 50px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 33%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 2px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 0px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 0px;
+    }
+    
+}
+
+@media screen and (max-width: 1100px){
+
+    .season3 {
+        width: 94%;
+        left: 25px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 32%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 10px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 0px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 0px;
+    }
+    
+}
+
+@media screen and (max-width: 850px){
+
+    .season3 {
+        width: 90%;
+        left: 35px;
+        display: flex;
+    }
+
+    div.col{
+        width: 45%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 15px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 40px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 215px;
+    }
+    
+}
+
+@media screen and (max-width: 800px){
+
+    .season3 {
+        width: 90%;
+        left: 35px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 45%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 200px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 200px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 200px;
+    }
+    
+}
+
+@media screen and (max-width: 750px){
+
+    .season3 {
+        width: 90%;
+        left: 35px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 55%;
+        margin-top: 50px;
+        margin-right: 0px;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 155px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 155px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 155px;
+    }
+    
+}
+
+@media screen and (max-width: 700px){
+
+
+    div.col:nth-child(1){
+        margin-left: 135px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 135px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 135px;
+    }
+    
+}
+
+@media screen and (max-width: 650px){
+
+    .season3 {
+        width: 90%;
+        left: 25px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 65%;
+        margin-top: 50px;
+        margin-right: 0px;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 110px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 110px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 110px;
+    }
+    
+}
+
+@media screen and (max-width: 580px){
+
+    .season3 {
+        width: 90%;
+        left: 25px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 75%;
+        margin-top: 50px;
+        margin-right: 0px;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 55px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 55px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 55px;
+    }
+    
+}
+
+@media screen and (max-width: 480px){
+
+    .season3 {
+        width: 90%;
+        left: 25px;
+        display: inline-block;
+    }
+
+    div.col{
+        width: 80%;
+        margin-top: 50px;
+        margin-right: 0px;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 38px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 38px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 38px;
+    }
+    
+}
+
+
+@media screen and (max-width: 310px) {
+
+    .season3 {
+        width: 92%;
+        left: 10px;
+    }
+
+    div.col{
+        width: 85%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 25px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 25px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 25px;
+    }
+
+}
+
+@media screen and (max-width: 270px) {
+
+    .season3 {
+        width: 92%;
+        left: 0px;
+    }
+
+    div.col{
+        width: 95%;
+    }
+
+    div.col:nth-child(1){
+        margin-left: 15px;
+    }
+
+    div.col:nth-child(2){
+        margin-left: 15px;
+    }
+
+    div.col:nth-child(3){
+        margin-left: 15px;
+    }
+
+}
+
+

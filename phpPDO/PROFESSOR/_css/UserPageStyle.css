@@ -1,0 +1,387 @@
+
+
+.btn-secondary {
+    border: 1px solid white;
+}
+
+.notification-list{
+    display: flex;
+    bottom: 0px;
+    right: 0px;
+    background-color: #373b3f;
+    padding: 7px;
+    margin-right: 20px;
+    border: 9px solid white;
+    border-bottom: 9px solid #373b3f;
+    border-top: 9px solid #373b3f;
+    
+}
+
+span.account-position{
+    border: 1px solid transparent;
+    border-left: 1px solid white;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    
+
+}
+
+.SairDiv{
+    position: relative;
+    width: 100%;
+    height: 35px;
+    top: 0px;
+    background-color:rgb(58, 96, 201) ;
+}
+
+.SairLogin{
+    position: relative;
+    top: 5px;
+    text-decoration: none; 
+    color: black; 
+    padding-left: 15px;
+
+}
+
+.SairLogin :hover{
+    color: white;
+}
+
+.season2{
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: -10px;
+    text-align: center;
+    width: 100%;
+    background-color: #212529;
+    color:white;
+    font-size: 30px;
+}
+
+.col-lg-4{
+    text-align: center;
+}
+
+.container{
+    background-color: white;
+    margin-top: 30px;
+}
+
+
+.btn {
+    background-color: black;
+    transition: 0.5s;
+}
+
+
+
+
+
+
+
+
+/* Sessão do Meio do Site */
+.mediumSeason {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 50px;
+    margin-bottom: -30px;
+}
+
+.featurette {
+    margin-bottom: 70px;
+    margin-left: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 3° Sessão do Site */
+
+
+.season3{
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 25PX;  
+    left: 120px;
+    margin-right: 0px;
+    width: 83%;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+}
+
+div.col{
+    width: 30%;
+    margin-top: 50px;
+    margin-right: 0px;
+}
+
+div.col:nth-child(1){
+    margin-left: 55px;
+}
+
+div.col:nth-child(3){
+    margin-right: 0px;
+}
+
+
+.d-flex a:hover{
+    background-color: #0e1924;
+}
+
+input.form-control {
+    width: 250px;
+}
+
+.bd-placeholder-img {
+    margin-bottom: 20px;
+}
+
+
+.card-header {
+    background-color: black;
+    color: white;
+}
+
+.card-body {
+    background-color: #353535;
+}
+
+.card-body2{
+    background-color: #353535;
+    padding: 15px;
+}
+
+.card-body2:hover {
+    background-color: #b88e3a!important;
+}
+
+.card-body h1 {
+    color: white;
+}
+
+.list-unstyled li{
+    color: white;
+}
+
+
+
+
+.btn-outline-primary {
+    border: 1px solid white;
+    color: white;
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    font-weight: 600;
+}
+
+
+
+
+
+.btn-primary {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+
+.btn-primary:hover{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    font-weight: 600;
+}
+
+
+
+
+
+
+.shadow-sm2 {
+    border: 3px solid black!important;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px 2px;
+}
+
+.shadow-sm2:hover {
+    background-color: #d6aa53!important;
+}
+
+.bg-primary {
+    background-color: black!important;
+}
+
+.bg-primary h4{
+    color: white;
+    font-weight: 600;
+}
+
+
+/* BOTÃO DO SERVIÇO MASTER */
+
+.buttons button {
+    background: none;
+    border: 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    padding: 7px;
+    box-shadow: inset 0 0 0 2px white;
+    color: white;
+    background-color: black;
+    font-size: 22px;
+    position: relative;
+    vertical-align: middle;
+}
+
+.meet::before, .meet::after {
+    box-sizing: inherit;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.draw {
+    transition: color 0.25s;
+}
+  
+.draw::before, .draw::after {
+    border: 2px solid transparent;
+    width: 0;
+    height: 0;
+}
+  
+.draw::before {
+    top: 0;
+    left: 0;
+}
+  
+.draw::after {
+    bottom: 0;
+    right: 0;
+}
+  
+.draw:hover {
+    color: #60daaa;
+}
+
+.draw:hover::before, .draw:hover::after {
+    width: 100%;
+    height: 100%;
+}
+
+.draw:hover::before {
+    transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+}
+
+.draw:hover::after {
+    transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+}
+
+.meet:hover {
+    color: black;
+    background-color: #d6aa53;
+    font-weight: 600;
+    border: 0px solid transparent;
+
+}
+
+.meet::after {
+    top: 0;
+    left: 0;
+}
+
+.meet:hover::before {
+    border-top-color: black;
+    border-right-color: black;
+    border-radius: 4px;
+}
+
+.meet:hover::after {
+    border-bottom-color: black;
+    border-left-color: black;
+    border-radius: 4px;
+    transition: height 0.25s ease-out, width 0.25s ease-out 0.25s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Formulário Teste no Site */
+.formSeason {
+    width: 100%;
+    background-color: #212529;
+    padding-bottom: 50px;
+    margin-left: 0px;
+    margin-top: -15px;
+}
+
+.formSeason h2 {
+    text-align: center;
+    color: white;
+    padding-top: 20px;
+}
+
+.formSeason form {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 700px;
+    position: relative;
+    left: 328px; 
+    margin-top: 25px;
+    border: 2px solid black;
+    padding: 25px;
+    color: white;
+}
+
+.formSeason input{
+    padding-left: 25px;
+}
+
+input.form-control {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+textarea.form-control {
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style do Rodapé do Site */
+

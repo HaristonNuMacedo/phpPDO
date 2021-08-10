@@ -1,0 +1,12 @@
+@media screen and (min-width: 1440px){
+
+    .formSeason form {
+        width: 700px;
+        left: 28%; 
+    }
+
+    .season3{ 
+        left: 110px;
+    }
+
+} 

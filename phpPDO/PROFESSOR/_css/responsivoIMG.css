@@ -1,0 +1,165 @@
+/* Imagem Slider */
+
+@media screen and (max-width: 3840px){
+
+    .carousel-item img {
+        height: 1600px;
+    }
+
+} 
+
+
+
+@media screen and (max-width: 2560px){
+
+    .carousel-item img {
+        height: 1000px;
+    }
+
+} 
+
+@media screen and (max-width: 1920px){
+
+    .carousel-item img {
+        height: 800px;
+    }
+
+}
+
+@media screen and (max-width: 1600px){
+
+    .carousel-item img {
+        height: 660px;
+    }
+
+}
+
+@media screen and (max-width: 1440px){
+
+    .carousel-item img {
+        height: 540px;
+    }
+
+}
+
+@media screen and (max-width: 1100px){
+
+    .carousel-item img {
+        height: 440px;
+    }
+
+}
+
+@media screen and (max-width: 1000px){
+
+    .carousel-item img {
+        height: 425px;
+    }
+
+}
+
+@media screen and (max-width: 900px){
+
+    .carousel-item img {
+        height: 400px;
+    }
+
+}
+
+@media screen and (max-width: 850px){
+
+    .carousel-item img {
+        height: 380px;
+    }
+
+}
+
+@media screen and (max-width: 800px){
+
+    .carousel-item img {
+        height: 360px;
+    }
+
+}
+
+@media screen and (max-width: 750px){
+
+    .carousel-item img {
+        height: 340px;
+    }
+
+}
+
+@media screen and (max-width: 700px){
+
+    .carousel-item img {
+        height: 310px;
+    }
+
+}
+
+@media screen and (max-width: 650px){
+
+    .carousel-item img {
+        height: 290px;
+    }
+
+}
+
+@media screen and (max-width: 600px){
+
+    .carousel-item img {
+        height: 275px;
+    }
+
+}
+
+@media screen and (max-width: 550px){
+
+    .carousel-item img {
+        height: 250px;
+    }
+
+}
+
+@media screen and (max-width: 500px){
+
+    .carousel-item img {
+        height: 225px;
+    }
+
+}
+
+@media screen and (max-width: 450px){
+
+    .carousel-item img {
+        height: 200px;
+    }
+
+}
+
+@media screen and (max-width: 400px){
+
+    .carousel-item img {
+        height: 180px;
+    }
+
+}
+
+@media screen and (max-width: 300px){
+
+    .carousel-item img {
+        height: 160px;
+    }
+
+}
+
+@media screen and (max-width: 250px){
+
+    .carousel-item img {
+        height: 140px;
+    }
+
+}
+
+

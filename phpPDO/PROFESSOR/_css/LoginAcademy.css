@@ -1,0 +1,205 @@
+
+.formLogin {
+    position: absolute;
+    text-align: center;
+    width: 750px;
+    padding: 15px;
+    top: 25%;
+    left: 23%;
+    border: 2px solid black;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px 2px;
+}
+
+.PassWord {
+    display: flex;
+    margin-left: 28px;
+}
+
+.EmalAdd{
+    display: flex;
+    margin-left: 28px;
+}
+
+.imgPudle{
+    position: absolute;
+    top: 17px;
+    left: 10px;
+    margin-right: 0px;
+    height: 24px;
+    width: auto;
+}
+
+.imgUser{
+  position: absolute;
+  top: 17px;
+  left: 10px;
+  margin-right: 0px;
+  height: 24px;
+  width: auto;
+}
+
+.form-control{
+    padding-left: 20px;
+}
+
+.btn-secondary {
+    border: 1px solid white;
+}
+
+
+
+.titulo {
+    font-size: 40px;
+    margin-bottom: 10px;
+    font-weight: 600;
+
+}
+
+.OTest{
+    position: relative;
+    width: 18px;
+    height: 18px;
+    margin: 10px;
+    margin-top: 15px;
+    margin-left: -42em;
+}
+
+label.text002{
+    position: absolute;
+    font-size: 15px;
+    margin-top: 13px;
+    font-weight: 600;
+}
+
+.LoginForm {
+  display: flex;
+  position: absolute;
+  right: 20px;
+}
+
+img {
+    position: fixed;
+    height: 650px;
+}
+
+label{
+    font-weight: 600;
+}
+
+option{
+    font-weight: 600; 
+}
+
+
+
+
+
+h3{
+    content: '';
+    border-bottom: 1px solid black;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+h4{
+    content: '';
+    border-bottom: 1px solid black;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+h5{
+    content: '';
+    border-bottom: 1px solid black;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+.buttons button {
+    background: none;
+    border: 0;
+    box-sizing: border-box;
+    padding: 1em 6em;
+    box-shadow: inset 0 0 0 3px #919191;
+    color: #000000;
+    font-size: inherit;
+    font-weight: 700;
+    position: relative;
+    vertical-align: middle;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+  .draw::before, .draw::after {
+    box-sizing: inherit;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+  
+  .draw {
+    transition: color 0.15s;
+}
+
+  .draw::before, .draw::after {
+    border: 2px solid transparent;
+    width: 0;
+    height: 0;
+}
+
+  .draw::before {
+    top: 0;
+    left: 0;
+}
+
+  .draw::after {
+    bottom: 0;
+    right: 0;
+}
+
+  .draw:hover {
+    color: #083825;
+    font-weight: 700;
+}
+
+  .draw:hover::before, .draw:hover::after {
+    width: 100%;
+    height: 100%;
+}
+
+  .draw:hover::before {
+    border-top-color: #000000;
+    border-right-color: #000000;
+    transition: width 0.15s ease-out, height 0.15s ease-out 0.15s;
+}
+
+  .draw:hover::after {
+    border-bottom-color: #000000;
+    border-left-color: #000000;
+    transition: border-color 0s ease-out 0.3s, width 0.15s ease-out 0.3s, height 0.15s ease-out 0.45s;
+}
+  
+
+
+@media screen and (min-width: 1440px) {
+
+  .formLogin {
+    top: 22%;
+    left: 27%;
+  }
+
+  img {
+    position: fixed;
+    height: 800px;
+}
+
+}

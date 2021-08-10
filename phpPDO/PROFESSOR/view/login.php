@@ -3,15 +3,54 @@
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
         <style>
             .espaco{
                 padding: 10px;
             }
         </style>
+
+        <!-- SweetAlert -->
+        <script src="sweetalert2.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="sweetalert2.min.css">
+
     </head>
     <body>
+
+    <?php
+        if (isset($_POST['enviar'])){
+            include_once '../dao/daoPessoa.php';
+            
+            $login = trim($_POST['login']);
+            $senha = $_POST['senha'];
+            //$senha = md5($senhaSemCriptografia);
+            //echo "Senha:".$senha."<br>";
+            
+            $dp = new DaoPessoa();
+            $check = $dp->procurarsenha($login, $senha);
+            if ($check == 1){
+                
+                header("Location: UserPage.html");
+                
+            }else{
+                echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0;
+                    URL='http://localhost/phpPDO/phpPDO/PROFESSOR/view/login.php'\">";
+                
+                echo "<script>
+                    Swal.fire({
+                            title: 'Login ou senha não encontrados!',
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    </script>";
+            }
+
+        }
+        
+        
+        ?>
         <div class="container">
             <div class="row espaco">
                 <div class=" col-md-6 offset-md-3"
@@ -52,7 +91,7 @@
             </div>
         </div>
         
-        <script src="js/bootstrap.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="../js/bootstrap.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
     </body>
 </html>
