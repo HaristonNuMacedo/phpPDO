@@ -325,8 +325,7 @@ class DaoPessoa
     
         }
            
-        public function procurarsenha($login, $senha)
-    {
+        /*public function procurarsenha($login, $senha) {
         $pessoa = new Pessoa();
         $conn = new Conecta();
         $conecta = $conn->conectadb();
@@ -356,6 +355,6 @@ class DaoPessoa
 
             echo "Sem conexão com o banco";
         }
-    }
+    }*/
 }
 

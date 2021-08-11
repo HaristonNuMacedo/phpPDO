@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION['msg'])) {
+    $_SESSION['msg'] = "";
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +26,7 @@
     <body>
 
     <?php
-        if (isset($_POST['enviar'])){
+        /*if (isset($_POST['enviar'])){
             include_once '../dao/daoPessoa.php';
             
             $login = trim($_POST['login']);
@@ -47,7 +53,7 @@
                     </script>";
             }
 
-        }
+        }*/
         
         
         ?>
@@ -58,8 +64,16 @@
                     <div class="card-header bg-primary border espaco
                          text-white text-center">Validação de Login</div>
                     <div class="card-body border">
-                        <form method="post" action="">
+                        <form method="post" action="../controller/validaLogin.php">
                             <div class="row espaco">
+                            <?php 
+                            if ($_SESSION['msg'] != "") {
+                            echo $_SESSION['msg'];
+                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                                    URL='login.php'\">"; 
+                                $_SESSION['msg'] = "";
+                            }
+                            ?>
                                 <div class="col-md-8 offset-md-2 ">
                                     <label>Usuário</label>
                                 </div>    
