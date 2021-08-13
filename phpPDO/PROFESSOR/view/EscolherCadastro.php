@@ -1,4 +1,4 @@
-<php
+<?php
 
 ?>
 <!DOCTYPE html>
@@ -58,7 +58,9 @@
                     <img src="../img/user.png" alt="user-image" class="rounded-circle" width="40px" height="40px" style="background-color: white; border: 1px solid white;">
                 </span>
                 <span>
-                    <span class="account-user-name" style="color: white;">Hariston AMD</span>
+                    <span class="account-user-name" style="color: white;">
+                        Yamato Phort
+                    </span>
                     <span class="account-position">Founder</span>
                 </span>
             </a>

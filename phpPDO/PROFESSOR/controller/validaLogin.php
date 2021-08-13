@@ -3,6 +3,12 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/dao/daoLogin.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
 
+    if (!empty($_POST) AND !isset($_POST) AND (empty($_POST['login']) 
+        OR empty($_POST['senha']))) {
+            //destroi as sessões e redireciona para a página inicial.
+            header("Location: ../sessionDestroy.php"); exit;
+    }
+
     $login = $_REQUEST['login'];
     $senha = $_REQUEST['senha'];
 
@@ -18,10 +24,11 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
             $_SESSION['nomep'] = $resp->getNome();
             $_SESSION['perfilp'] = $resp->getPerfil();
             header("location: ../view/EscolherCadastro.php");
-            exit;
+        exit;
         }
     } else {
         $_SESSION['msg'] = $resp; 
         header("location: ../view/login.php");
         exit;
     }
+

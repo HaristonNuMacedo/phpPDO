@@ -1,8 +1,14 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 if (!isset($_SESSION['msg'])) {
     $_SESSION['msg'] = "";
 }
+
+//$_SESSION['nr'];
+//$_SESSION['confereNr'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -68,8 +74,8 @@ if (!isset($_SESSION['msg'])) {
                             <div class="row espaco">
                             <?php 
                             if ($_SESSION['msg'] != "") {
-                            echo $_SESSION['msg'];
-                            echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
+                                echo $_SESSION['msg'];
+                                echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"2;
                                     URL='login.php'\">"; 
                                 $_SESSION['msg'] = "";
                             }
