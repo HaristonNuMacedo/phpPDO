@@ -163,7 +163,7 @@ if((!isset($_SESSION['loginp']) || !isset($_SESSION['nomep'])) ||
             </div>       
         </div>
 
-        <section class="season2" style="background-color: #212529; margin-top: 16px; padding-top: 16px;">
+        <section class="season2" style="background-color: #212529; margin-top: 16px; padding-top: 16px; margin-bottom: 50px;">
             <p>&#9650; CADASTROS &#9650;</p>
         </section>
 
