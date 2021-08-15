@@ -1,16 +1,20 @@
 <?php
+ob_start();
+session_start();
+if (!empty($_POST) AND (empty($_POST['login']) OR empty($_POST['senha']))) {
+	//redireciona para a página inicial.
+	header("Location: ../view/EscolherCadastro.php"); exit;
+}
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/dao/daoLogin.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/Mensagem.php';
 include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
 
-    if (!empty($_POST) AND !isset($_POST) AND (empty($_POST['login']) 
-        OR empty($_POST['senha']))) {
-            //destroi as sessões e redireciona para a página inicial.
-            header("Location: ../sessionDestroy.php"); exit;
+    if(isset($_POST)){
+        $login = $_POST['login'];
+        $senha = $_POST['senha'];
+    }else{
+        header("Location: ../view/EscolherCadastro.php"); exit;
     }
-
-    $login = $_REQUEST['login'];
-    $senha = $_REQUEST['senha'];
 
     $daoLogin = new DaoLogin();
     $resp = new Pessoa();
@@ -23,11 +27,22 @@ include_once 'C:/xampp/htdocs/phpPDO/phpPDO/PROFESSOR/model/pessoa.php';
             $_SESSION['idp'] = $resp->getIdpessoa();
             $_SESSION['nomep'] = $resp->getNome();
             $_SESSION['perfilp'] = $resp->getPerfil();
+
+            $_SESSION['nr'] = rand(1,1000000);
+            $_SESSION['confereNr'] = $_SESSION['nr'];
+            //echo($_SESSION['nr'])."<br>";
+            //echo($_SESSION['confereNr'])."<br>";
             header("location: ../view/EscolherCadastro.php");
-        exit;
+            exit;
         }
     } else {
         $_SESSION['msg'] = $resp; 
+        if(isset($_SESSION['loginp'])){
+            $_SESSION['loginp'] = null;
+            $_SESSION['idp'] = null;
+            $_SESSION['nomep'] = null;
+            $_SESSION['perfilp'] = null;
+        }
         header("location: ../view/login.php");
         exit;
     }

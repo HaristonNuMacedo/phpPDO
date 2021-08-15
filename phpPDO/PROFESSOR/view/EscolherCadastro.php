@@ -1,18 +1,27 @@
 <?php
+ob_start();
+session_start();
 
+if((!isset($_SESSION['loginp']) || !isset($_SESSION['nomep'])) ||
+        !isset($_SESSION['perfilp']) || !isset($_SESSION['nr']) ||
+        ($_SESSION['nr'] != $_SESSION['confereNr'])) { 
+    // Usuário não logado! Redireciona para a página de login 
+    header("Location: sessionDestroy.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
 
-    <title>AMD ACADEMIA</title>
+    <title>AMD CADASTROS</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <!-- Responsivos e Desing visual -->
-    <link rel="stylesheet" href="../_css/UserPageStyle.css">
+    <link rel="stylesheet" href="../_css/UserPageStyle copy.css">
     <link rel="stylesheet" href="../_css/responsivoSeason3.css">
     <link rel="stylesheet" href="../_css/responsivoIMG.css">
     <link rel="stylesheet" href="../_css/responsivoForm.css">
@@ -59,9 +68,19 @@
                 </span>
                 <span>
                     <span class="account-user-name" style="color: white;">
-                        Yamato Phort
+                        <?php echo $_SESSION['nomep'];?>
                     </span>
-                    <span class="account-position">Founder</span>
+                    <span class="account-position">
+                        <?php
+                            if($_SESSION['perfilp'] == "Cliente"){
+                                echo "<span style='color: background-color:rgb(58, 96, 201)';>
+                                CLIENT USER</span>";
+                            }else{
+                                echo "<span style='color: background-color:rgb(58, 96, 201)';>
+                                EMPLOYEE</span>";
+                            }
+                        ?>
+                    </span>
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" style="height: 220px;">
@@ -96,7 +115,7 @@
 
                 <!-- item-->
                 <div class="SairDiv">
-                  <a href="./login.php" class="SairLogin">
+                  <a href="./sessionDestroy.php" class="SairLogin">
                     <i class="mdi mdi-lock-outline me-1"></i> 
                     <span>Logout...&#8608;</span>
                   </a>
