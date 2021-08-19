@@ -378,23 +378,23 @@ class DaoPessoa
         if(idp > 0) then
             set msg = "Usuário já Cadastrado anteriormente!"
         else
+        select idEndereco into idx from endereco where logradouro = logradouroP
+        and complemento = complementoP and cep = cepP;
+        if(idx = -1) then
+            insert into endereco values (null, cepP, logradouroP, complementoP, bairroP,
+                cidadeP, ufP);
             select idEndereco into idx from endereco where logradouro = logradouroP
-            and complemento = complementoP and cep = cepP;
-            if(idx = -1) then
-                insert into endereco values (null, cepP, logradouroP, complementoP, bairroP,
-                    cidadeP, ufP);
-                select idEndereco into idx from endereco where logradouro = logradouroP
-                    and complemento = complementoP and cep = cepP;
-            end if
+                and complemento = complementoP and cep = cepP;
+        end if
 
-            insert into pessoa values (null, nomeP, dtNascP, loginP, md5(senhaP), perfilP,
-                emailP, cpfP, idx);
-            set msg = "Dados galados com sucesso!!";
-            select msg;
-            select * from pessoa inner join endereco on fkEndereco = idEndereco;
+        insert into pessoa values (null, nomeP, dtNascP, loginP, md5(senhaP), perfilP,
+            emailP, cpfP, idx);
+        set msg = "Dados galados com sucesso!!";
+        select msg;
+        select * from pessoa inner join endereco on fkEndereco = idEndereco;
 
     end if
-    select msg;
+        select msg;
     end $$
     delimiter ;
 
